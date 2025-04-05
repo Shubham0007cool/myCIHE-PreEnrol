@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="header">
+        <img src="CIHE_logo.png" alt="Logo" class="logo">
+        <div class="nav">
+            <div class="dropdown">
+                <a href="admin.html" class="nav-link active">Dashboard</a>
+                <div class="dropdown-content">
+                    <a href="search.html">Select Course and Units</a>
+                    <a href="add_units.html">Add Units</a>
+                </div>
+            </div>
+            <a href="studentpp.html">Student Profile</a>
+            <a href="/index.html" id="logout">Logout</a>
+            <div class="dropdown">
+                <a href="#">Settings</a>
+                <div class="dropdown-content">
+                    <a href="#popForm">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popForm" class="popUp">
+        <a href="#" class="close-btn">✖</a>
+        <form class="popMe">
+          <label for="old">Old Password <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" name="password" required>
+          <label for="new">New Passowrd <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
+          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
+          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
+          
+          <button class="change" type="submit">Change</button>
+        </form>
+      </div>
+    
+
+    <div class="student-profile-container">
+        <div class="search-container">
+            <h3>Search Student Profiles</h3>
+            <input type="text" id="studentSearch" placeholder="Search by Name or ID..." onkeyup="searchStudents()">
+            <div class="student-results">
+                <h4>Search Results</h4>
+                <ul id="resultsList">
+                    <li onclick="showStudentProfile('Jhalak Dhakal', 'CIHE22238', 'jhalak@cihe.edu', '+61 400 123 456', '123 STREET, PHILLIP ACT', ['ICT305 - Topics in IT', 'ICT307 - Networking'])">Jhalak Dhakal - CIHE22238</li>
+                    <li onclick="showStudentProfile('John Doe', 'CIHE22345', 'john@cihe.edu', '+61 400 123 457', '456 STREET, PHILLIP ACT', ['ICT308 - Programming', 'ICT310 - Web Development'])">John Doe - CIHE22345</li>
+                    <li onclick="showStudentProfile('Jane Smith', 'CIHE22456', 'jane@cihe.edu', '+61 400 123 458', '789 STREET, PHILLIP ACT', ['ICT309 - Databases', 'ICT311 - AI'])">Jane Smith - CIHE22456</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="profileDetails" class="profile-card" style="display:none;">
+            <div class="profile-header">
+                <img id="profilePic" src="jhakak.jpg" alt="Profile Picture" class="profile-pic">
+                <h2 id="profileName">Jhalak Dhakal</h2>
+                <p id="profileId">Student ID: CIHE22238</p>
+            </div>
+            <div class="profile-details">
+                <h3>Contact Details</h3>
+                <ul>
+                    <li><strong>Email:</strong> <span id="profileEmail">jhalak@cihe.edu</span></li>
+                    <li><strong>Phone:</strong> <span id="profilePhone">+61 400 123 456</span></li>
+                    <li><strong>Address:</strong> <span id="profileAddress">123 STREET, PHILLIP ACT</span></li>
+                </ul>
+                <h3>Course Enrollments</h3>
+                <ul id="courseList">
+                    <li><strong>ICT305 - Topics in IT</strong> | Semester 2, 2024</li>
+                    <li><strong>ICT307 - Networking</strong> | Semester 2, 2024</li>
+                </ul>
+            </div>
+            <button class="edit-profile-btn" onclick="showComingSoon()">Edit Profile</button>
+        </div>
+
+        <div id="comingSoonPopup" class="coming-soon-popup" style="display:none;">
+            <div class="popup-content">
+                <h3>Feature Coming Soon!</h3>
+                <p>This feature is currently under development and will be available soon.</p>
+                <button onclick="closeComingSoon()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Copyright &copy; 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved.<br>
+        Privacy Policy | Terms of Use
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const students = [
+                { name: 'Jhalak Dhakal', id: 'CIHE22238', email: 'jhalak@cihe.edu', phone: '+61 400 123 456', address: '123 STREET, PHILLIP ACT', courses: ['ICT305 - Topics in IT', 'ICT307 - Networking'] },
+                { name: 'John Doe', id: 'CIHE22345', email: 'john@cihe.edu', phone: '+61 400 123 457', address: '456 STREET, PHILLIP ACT', courses: ['ICT308 - Programming', 'ICT310 - Web Development'] },
+                { name: 'Jane Smith', id: 'CIHE22456', email: 'jane@cihe.edu', phone: '+61 400 123 458', address: '789 STREET, PHILLIP ACT', courses: ['ICT309 - Databases', 'ICT311 - AI'] }
+            ];
+
+            window.searchStudents = function() {
+                const searchTerm = document.getElementById('studentSearch').value.toLowerCase();
+                const resultsList = document.getElementById('resultsList');
+                
+                const filteredStudents = students.filter(student => 
+                    student.name.toLowerCase().includes(searchTerm) || student.id.toLowerCase().includes(searchTerm)
+                );
+
+                resultsList.innerHTML = '';
+
+                filteredStudents.forEach(student => {
+                    const studentItem = document.createElement('li');
+                    studentItem.innerHTML = `${student.name} - ${student.id}`;
+                    studentItem.setAttribute("onclick", `showStudentProfile('${student.name}', '${student.id}', '${student.email}', '${student.phone}', '${student.address}', ${JSON.stringify(student.courses)})`);
+                    resultsList.appendChild(studentItem);
+                });
+
+                if (filteredStudents.length === 0) {
+                    resultsList.innerHTML = '<li>No students found matching your search.</li>';
+                }
+            }
+
+            window.showStudentProfile = function(name, id, email, phone, address, courses) {
+                document.getElementById('profileDetails').style.display = 'block';
+                document.getElementById('profileName').innerText = name;
+                document.getElementById('profileId').innerText = `Student ID: ${id}`;
+                document.getElementById('profileEmail').innerText = email;
+                document.getElementById('profilePhone').innerText = phone;
+                document.getElementById('profileAddress').innerText = address;
+                
+                const courseList = document.getElementById('courseList');
+                courseList.innerHTML = '';
+                courses.forEach(course => {
+                    const courseItem = document.createElement('li');
+                    courseItem.innerHTML = `<strong>${course}</strong> | Semester 2, 2024`;
+                    courseList.appendChild(courseItem);
+                });
+            };
+        });
+
+    

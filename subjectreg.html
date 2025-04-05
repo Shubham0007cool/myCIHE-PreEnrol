@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subrego</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="log">
+        <p>Logged in as Student (CIHE22580)</p>
+        <ul>
+            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
+        </ul>
+    </div>
+
+    <div class="nav">
+        <div class="logo">
+            <a href="home.html">
+                <img src="image.png" alt="Logo">
+            </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="links">
+            <ul>
+                <li class="dropdown">
+                    <a href="home.html">Dashboard</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="orange" href="profile.html">Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="subjectreg.html">Subject Registration</a></li>
+                <li><a href="Support.html">Support</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Setting</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#popForm">Change Password</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', () => {
+        document.querySelector('.links').classList.toggle('active');
+    });
+    </script>
+        
+    
+    <div id="popForm" class="popUp">
+        <a href="#" class="close-btn">✖</a>
+        <form class="popMe">
+          <label for="old">Old Password <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" name="password" required>
+          <label for="new">New Passowrd <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
+          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
+          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
+          
+          <button class="change" type="submit">Change</button>
+        </form>
+      </div>
+   
+    <header class="loggedIn">
+        <h2>Welcome, Student</h2>
+        <div class="buttons">
+            <i class="fa-solid fa-bell"></i>
+             <button><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+        </div>
+    </header>
+
+    <div class="head">
+        <h1>Search Course</h1>
+    </div>
+
+    <div class="locations">
+        <select>
+            <option value="">Select locations</option>
+            <option value="Gungahlin">Gungahlin</option>
+            <option value="Belconnen">Belconnen</option>
+            <option value="City">City</option>
+        </select>
+    </div>
+
+<hr>
+<!--script for searchbar-->
+<script> document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.querySelector(".search input");
+    const courses = document.querySelectorAll(".images .sub1, .images .sub2, .images .sub3");
+    
+    searchInput.addEventListener("input", function () {
+        const query = searchInput.value.toLowerCase();
+        
+        courses.forEach(course => {
+            const courseText = course.querySelector("p").textContent.toLowerCase();
+            if (courseText.includes(query)) {
+                course.style.display = "block";
+            } else {
+                course.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+    <div class="search">
+        <i class="fa-solid fa-search"></i><input type="search"  placeholder="Search units...">
+    </div>
+   <h1 class="available" style="text-align: center; color: gray;">
+    Please select your courses to register.
+   </h1>
+    <div class="images">
+        <div class="sub1">   
+        <a href="registration.html">
+            <img class="subs" src="program.jpeg" alt=""> </a>
+        <hr>
+        <p class="IT" style="color: black;">Bachelor of IT</p> 
+    </div>
+
+    <div class="sub2">   
+        <a href="masters.html"><img class="subs" src="degree.jpeg" alt=""> </a>
+        <hr>
+        <p>Masters of IT</p>
+</div>
+<div class="sub3">   
+    <a href="earlychild.html"><img class="subs" src="sports1.png" alt=""> </a>
+    <hr>
+    <p>Bachelor of Early Childhood Education</p>
+</div>
+
+</div>
+<footer>
+    <div>
+        &copy; Copyright 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved. Privacy Policy | Terms of Use
+    </div>
+</footer>
+</body>
+</html>

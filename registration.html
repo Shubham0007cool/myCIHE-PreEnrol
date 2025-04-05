@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="log">
+        <p>Logged in as Student (CIHE22580)</p>
+        <ul>
+            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
+        </ul>
+    </div>
+
+   
+    <div class="nav">
+        <div class="logo">
+            <a href="home.html">
+                <img src="image.png" alt="Logo">
+            </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="links">
+            <ul>
+                <li class="dropdown">
+                    <a href="home.html">Dashboard</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="orange" href="profile.html">Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="subjectreg.html">Subject Registration</a></li>
+                <li><a href="Support.html">Support</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Setting</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#popForm">Change Password</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', () => {
+        document.querySelector('.links').classList.toggle('active');
+    });
+    </script>
+
+     <div id="popForm" class="popUp">
+        <a href="#" class="close-btn">✖</a>
+        <form class="popMe">
+          <label for="old">Old Password <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" name="password" required>
+          <label for="new">New Passowrd <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
+          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
+          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
+          
+          <button class="change" type="submit">Change</button>
+        </form>
+      </div>
+   
+    <header class="loggedIn">
+        <h2>Welcome, Student</h2>
+        <div class="buttons">
+            <i class="fa-solid fa-bell"></i>
+            <button><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+        </div>
+    </header>
+
+   
+    <div class="location1">
+        <select>
+            <option value="">Select locations</option>
+            <option value="Gungahlin">Gungahlin</option>
+            <option value="Belconnen">Belconnen</option>
+            <option value="City">City</option>
+        </select>
+    </div>
+
+    <p class="Reso" style="padding: 20px;">Please select the subject and desired class session(s) and click Register button.</p>
+    <hr>
+   
+
+<div class="subjects">
+    <div class="subject1">
+        <h3 class="elective" style="text-align: center;">BUS 301: The Digital Economy (Elective-CP: 10.00)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Teacher</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"> BUS301</td>
+                    <td>
+                        <select>
+                            <option>Select teacher...</option>
+                            <option>Teacher1</option>
+                            <option>Teacher2</option>
+                            <option>Teacher3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select day...</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select time...</option>
+                            <option>8:30am-11:30am</option>
+                            <option>6:00pm-9:00pm</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="subject2">
+        <h3 class="elective" style="text-align: center;">ICT 101: Introduction to Information Technology (Core-CP: 10.00)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Teacher</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"> ICT101</td>
+                    <td>
+                        <select>
+                            <option>Select teacher...</option>
+                            <option>Teacher1</option>
+                            <option>Teacher2</option>
+                            <option>Teacher3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select day...</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select time...</option>
+                            <option>8:30am-11:30am</option>
+                            <option>6:00pm-9:00pm</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="subject3">
+        <h3 class="elective" style="text-align: center;">ICT103: Programming (Core-CP: 10.00)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Teacher</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"> ICT103</td>
+                    <td>
+                        <select>
+                            <option>Select teacher...</option>
+                            <option>Teacher1</option>
+                            <option>Teacher2</option>
+                            <option>Teacher3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select day...</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select time...</option>
+                            <option>8:30am-11:30am</option>
+                            <option>6:00pm-9:00pm</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="subject4">
+        <h3 class="elective" style="text-align: center;">ICT103: Programming (Core-CP: 10.00)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Teacher</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"> ICT103</td>
+                    <td>
+                        <select>
+                            <option>Select teacher...</option>
+                            <option>Teacher1</option>
+                            <option>Teacher2</option>
+                            <option>Teacher3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select day...</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select time...</option>
+                            <option>8:30am-11:30am</option>
+                            <option>6:00pm-9:00pm</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="btn-container">
+    <button id="register" class="button">Register</button>
+</div>
+<script>
+    // Simple JavaScript for the popup form
+    document.querySelectorAll('[href="#popForm"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('popForm').style.display = 'flex';
+        });
+    });
+    
+    document.querySelector('.close-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('popForm').style.display = 'none';
+    });
+    
+    // Notification bell click handler
+    document.querySelector('.fa-bell').addEventListener('click', function() {
+        alert('You have 3 new notifications');
+    });
+    
+    // Register button click handler
+    document.getElementById('register').addEventListener('click', function() {
+        const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        if (checkedBoxes.length === 0) {
+            alert('Please select at least one subject to register');
+        } else {
+            alert('Registration successful!');
+        }
+    });
+</script>
+<footer>
+    <div class="logoo">
+    <img src="CIHE.png" alt="CIHE Logo">
+</div>
+    <div>
+        &copy; Copyright 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved. Privacy Policy | Terms of Use
+    </div>
+    </footer>
+</body>
+</html>

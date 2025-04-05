@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="script.js">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    </head>
+<body>
+
+    <style>
+        @media (max-width: 480px){
+            .container1{
+            padding: 20px;
+            width: 85%;    
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            input {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .btn-2 button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <script>function letForm() {
+        // Access form elements
+        var fullname = document.forms ["getForm"]["Fullname"].value; //.trim removes the whitespaces between the text
+        var email = document.forms ["getForm"]["getmail"].value;
+        var phone = document.forms ["getForm"]["contact"].value;
+        var password = document.forms ["getForm"] ["PSW"].value;
+        var rePassword = document.forms ["getForm"]["PSW2"].value;
+        var location = document.forms ["getForm"]["location"].value;
+        var dob = document.forms ["getForm"] ["birth"].value;
+        var student = document.forms ["getForm"] ["studentID"].value;
+    
+        // Checks if any field is empty
+        if (fullname === '' || email === '' || phone === '' || password === '' || rePassword === '' || location === '' || dob === '' || student === '') {
+            alert("Please, fill all the details to sign up.");
+            return false;
+        }
+    
+        // Checks if passwords match
+        if (password !== rePassword) {
+            alert("Passwords do not match. Please re-enter your passwords.");
+            return false;
+        }
+    
+        // Validates phone number length
+        if (phone.length !== 10 || isNaN(phone)) {
+            alert("Phone number must be exactly 10 digits.");
+            return false;
+        }
+    
+        // Validates password pattern
+        var passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$/;
+        if (!passwordPattern.test(password)) {
+            alert("Password must be 6-10 characters long and include at least one letter, one number, and one special character (@, #, $, ?).");
+            return false;
+        }
+    
+        // shows Success message
+        alert("Successfully account created.");
+        return true;
+    }
+    </script>
+
+    <div class="container1">
+        <div class="img">
+            <img src="image.png" alt="Logo">
+        </div>
+        <h1>Sign up</h1>
+        <div class="formIt">
+            <form action="" id="getForm" onsubmit="return letForm()" >
+            <label for="Fullname">Full Name</label>
+            <input class="full" type="text" name="fullname" id="Fullname" placeholder="Enter full name">
+
+            <label for="Email">Email</label>
+            <input class="full" type="email" name="email" id="getmail" placeholder="Enter the email">
+
+            <label for="phone">Phone</label>
+            <input class="full" type="number" name="phone" id="contact" placeholder="Enter your number" maxlength="10">
+            <small>Phone number should be up to 10 digits.</small>
+
+            <label for="password">Password</label>
+            <input class="full" type="password" name="password" id="PSW" placeholder="Enter the password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6">
+            <small>Password must contain 6-10 characters, at least one letter, one number, and one special character (@, #, $, ?).</small>
+
+            <label for="Re-enter">Re-enter Password</label>
+            <input class="full" type="password" placeholder="Re-enter your password" minlength="6" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" name="password" id="PSW2">
+
+            <label for="location">Location</label>
+            <input class="full" type="text" name="location" id="location" placeholder="Enter your location">
+
+            <label for="DOB">Date of Birth</label>
+            <input class="full" type="date" name="dob" id="birth">
+
+            <label for="Student">Student ID</label>
+            <input class="full" type="text" id="studentID" placeholder="Enter your ID">
+
+            <label for="Units"> Degree
+                <select  class="unitss" name="" id="">
+                    <option value="">Select your level of study..</option>
+                    <option value="">Masters in IT</option>
+                    <option value="">Bachelor of IT</option>
+                    <option value="">Bachelor of Early Childhood</option>
+                    <option value="">Bachelor of Accounting</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="btn-2">
+            <button type="submit" id="register">Register</button>
+        </div>
+    </form>
+        <div class="login">
+            <span>Already have an account? <a href="index.html">Login</a></span>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logoo">
+        <img src="CIHE.png" alt="CIHE Logo">
+    </div>
+        <div>
+            &copy; Copyright 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved. Privacy Policy | Terms of Use
+        </div>
+</f</body>
+</html>

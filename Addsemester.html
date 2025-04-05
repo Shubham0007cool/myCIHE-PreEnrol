@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Units to Program</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    
+    <div class="header">
+        <img src="CIHE_logo.png" alt="Logo" class="logo">
+        <div class="nav">
+            <div class="dropdown">
+                <a href="admin.html" class="nav-link">Dashboard</a>
+                <div class="dropdown-content">
+                    <a href="search.html">Select Course and Units</a>
+                    <a href="Addsemester.html">Add Semester</a>
+                </div>
+            </div>
+            <a href="studentpp.html">Student Profile</a>
+            <div class="dropdown">
+                <a href="#">Settings</a>
+                <div class="dropdown-content">
+                    <a href="">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <h1>Add Units for Program</h1>
+        <form action="submit_units.php" method="POST" class="semester-form">
+            <div class="form-group">
+                <label for="semester">Select Semester</label>
+                <select id="semester" name="semester" required>
+                    <option value="">Select a semester</option>
+                    <option value="semester1_2025">Semester 1, 2025</option>
+                    <option value="semester2_2025">Semester 2, 2025</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="program">Select Program</label>
+                <select id="program" name="program" required>
+                    <option value="">Select a program</option>
+                    <option value="bachelor_it">Bachelor of IT</option>
+                    <option value="master_it">Master of IT</option>
+                    <option value="accounting">Accounting</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="units">Select Units</label>
+                <select id="units" name="units[]" multiple required>
+                    <option value="unit1">Unit 1 - Introduction to IT</option>
+                    <option value="unit2">Unit 2 - Advanced IT</option>
+                    <option value="unit3">Unit 3 - Web Development</option>
+                    <option value="unit4">Unit 4 - Cybersecurity</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-button">Add Units</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        Copyright &copy; 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved.<br>
+        Privacy Policy | Terms of Use
+    </div>
+</body>
+</html>
