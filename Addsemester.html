@@ -23,12 +23,24 @@
             <div class="dropdown">
                 <a href="#">Settings</a>
                 <div class="dropdown-content">
-                    <a href="">Change Password</a>
+                    <a href="#popForm">Change Password</a>
                 </div>
             </div>
         </div>
     </div>
-
+ <div id="popForm" class="popUp">
+        <a href="#" class="close-btn">✖</a>
+        <form class="popMe">
+          <label for="old">Old Password <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" name="password" required>
+          <label for="new">New Passowrd <span class="astrick">*</span></label>
+          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
+          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
+          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
+          
+          <button class="change" type="submit">Change</button>
+        </form>
+      </div>
     <div class="main">
         <h1>Add Units for Program</h1>
         <form action="submit_units.php" method="POST" class="semester-form">
