@@ -1,5 +1,6 @@
 
-        body {
+
+       body {
             margin: 0;
             padding: 0;
             background: #ffff;
@@ -108,12 +109,13 @@
 
         /* login page css*/
         .navbar {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-            width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
         }
 
         .navbar .logo img {
@@ -129,13 +131,14 @@
         }
 
         .navbar .link1 p {
-            margin-right: 10px;
+            margin-right: 15px;
+    color: #666;
+    font-size: 14px;
         }
 
         .navbar .link1 ul {
-            display: flex;
             list-style: none;
-            padding: 0;
+    display: flex;
         }
 
         .navbar .link1 ul li {
@@ -143,15 +146,15 @@
         }
 
         .navbar .link1 ul li a {
-            display: flex;
-            align-items: center;
-            padding: 5px 10px;
             text-decoration: none;
-            color: black;
+    color: #0066cc;
+    font-weight: 500;
+    font-size: 14px;
         }
         .navbar .link1 ul li a:hover{
             cursor: pointer;
             color: red;
+            text-decoration: underline;
         }
 
         .navbar .link1 ul li a i {
@@ -160,7 +163,9 @@
         }
 
         .welcome {
+            padding: 12px 5%;
             text-align: center;
+            font-size: clamp(14px, 3vw, 18px);
             margin: 20px;
         }
         .welcome span{
@@ -171,8 +176,15 @@
         .welcome i {
             color: #3490dc;
             padding: 10px;
+            margin-right: 8px;
             font-size: 25px;
             
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 0;
         }
     /* Welcome Note Styling */
     .welcome-note {
@@ -388,8 +400,10 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             width: 700px;
+            flex-wrap: wrap;
             margin: auto;
-            margin-top: 200px;
+            flex: 1;
+            margin-top: 90px;
             position: relative;
         }
         
@@ -400,6 +414,15 @@
             right: 10px;
             width: 80px;
             height: auto;
+        }
+        .login-box, .info-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 500px;
         }
         
         .login-box {
@@ -426,8 +449,10 @@
 
         }
         .CIHE {
+            color: black;
             margin-bottom: 20px;
-            margin: auto 90px;
+            text-align: center;
+            font-size: clamp(18px, 4vw, 24px);
         }
         
         label {
@@ -437,22 +462,21 @@
         }
         
         .getit[type="email"], .getit[type="password"] {
-            width: 95%;
-            padding: 10px;
-            margin-bottom: px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 90%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
         }
         
         .getit[type="email"]:focus {
-        outline: none;
-                border-color: #007bff;
-                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+            border-color: #0066cc;
             }
             .getit[type="password"]:focus{
                 outline: none;
-                border-color: #007bff;
-                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                border-color: #0066cc;
             }
         
         .login-btn{
@@ -483,8 +507,11 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
-        p {
+        .sign {
             margin-top: 15px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
         }
         
         a {
@@ -497,19 +524,7 @@
             color: red;
         }
         
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                width: 80%;
-            }
-            .login-box, .info-box {
-                padding: 15px;
-            }
-            .logo {
-                position: static;
-                margin-bottom: 20px;
-            }
-        }
+        
         .container2{
             border: 1px solid #ddd;
             max-width: 400px;
@@ -702,7 +717,8 @@
         }
 
         .nav .links {
-            margin-left: 57%;
+            margin:auto;
+            justify-content: center;
             font-family: Arial, sans-serif;
         }
 
@@ -2153,7 +2169,9 @@
 .btn8, .send-btn{
     width: 50%;
 }
-    @media (max-width: 768px) {
+
+
+@media (max-width: 600px) {
         .course-slides {
             height: 300px;
         }
@@ -2166,9 +2184,21 @@
             font-size: 14px;
         }
     }
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            width: 10%;
+        }
+        .login-box, .info-box {
+            padding: 15px;
+        }
+        .logo {
+            position: static;
+            margin-bottom: 20px;
+        }
+    }
 
-
-        @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
             .nav .links {
                 display: none;
                 flex-direction: column;
@@ -2182,6 +2212,11 @@
                 width: 50%;
                 text-align: left;
             }
+            .location1 select{
+                width: 160%;
+                margin:  -26%;
+            }
+           
         .sub-contents{
             display: flex;
             flex-direction: column;
@@ -2212,7 +2247,9 @@
             .nav .links.active {
                 display: flex;
             }
-        
+        .logo{
+            margin-top: 25px;
+        }
             .nav .hamburger {
                 display: block;
                 color: yellow;
@@ -2233,10 +2270,36 @@
                 gap: 0.5rem;
             }
 
-            .link1 ul li a {
-                font-size: 1.2rem;
-                cursor: pointer;
-            }
+           .link1, .logged a i{
+        flex-direction: column;
+        align-items: center;
+        margin: auto 30px;
+    }
+        .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+          .logged {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .login-box, .info-box {
+        padding: 15px;
+    }
+    .logo {
+        margin-bottom: 10px;
+    }
+    
+    .link1 {
+        flex-direction: column;
+        align-items: center;
+    }
             .cards {
                 flex-direction: column;
             }
@@ -2288,6 +2351,9 @@
             .adss{
                 text-align: center;
             }
+            .graduate img{
+                width: 100%;
+            }
             .horizontal{
                 margin: auto;
             }
@@ -2329,7 +2395,6 @@
             text-align: center;
             width: 300px;
         }
-            
         .number{
             text-align: center;
         }
@@ -2352,12 +2417,38 @@
             }
         
         }
-
-        @media screen and (max-width: 480px) {
+        @media (max-width: 480px) {
             .log, .nav {
-            
                 gap: 10px;
                 text-align: center;
+            }
+            .nav .logo{
+                margin-left: -75px;
+            }
+            .log p{
+                width: 85%;
+                display: inline;
+                font-size: 10px;
+            }
+            .log{
+                width: 100%;
+                margin:auto;
+            }
+            .log ul{
+                width: 100%;
+                margin:auto;
+            }
+            .log li{
+                width: 100%;
+                margin:auto;
+            }
+            .log a{
+                width: 100%;
+                margin:auto;
+            }
+            .log i{
+                width: 100%;
+                margin:auto;
             }
             .loggedIn {
                 padding: 10px 20px;
@@ -2365,15 +2456,22 @@
                 gap: 4rem;
 
             }
-            
+            .nav .hamburger {
+                display: block;
+                margin-left: -90px;
+                color: yellow;
+                align-items: center;
+                justify-content: left;
+                text-align: left;
+            }
             .buttons {
                 width: 100%;
                 justify-content: flex-end;
             }
             
             .loggedIn h2 {
-                font-size: 15px;
-                width: 20%;
+                font-size: 10px;
+                width: 10%;
             }
             
             .buttons button {
@@ -2385,11 +2483,17 @@
                 justify-content: center;
             }
             .welcome-buttons{
-                width: 60%;
-                margin:auto 30px;
+                width: 75%;
+                margin:auto 10px;
             }
-            .logo img {
-                max-width: 120px;
+            .btn2-secondary, a{
+                width: 48%;
+                margin:auto 80px;
+
+            }
+           .nav, .log, .logo img {
+                max-width: 100%;
+                margin-top: 7px;
             }
 
             .first {
@@ -2420,8 +2524,24 @@
                 font-size: 1em;
             }
         }
+ 
+    
+
+    @media screen and (max-width: 400px) {
+        .welcome {
+            padding: 10px;
+        }
+        
+        .getit, .user {
+            padding: 10px;
+        }
+        
+        .login-btn, .change {
+            padding: 10px;
+        }
+    }
         /* Responsive Design */
-        @media (max-width: 480px) {
+       @media (max-width: 480px) {
             .sports {
                 flex-direction: column;
                 align-items: center;
@@ -2431,4 +2551,5 @@
                 width: 90%;
             }
         }
+        
 
