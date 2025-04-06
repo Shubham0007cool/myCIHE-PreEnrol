@@ -5,9 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Units to Program</title>
     <link rel="stylesheet" href="admin.css">
+    <style>
+        .level-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .level-title {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .semester-group {
+            margin-bottom: 20px;
+        }
+        .semester-title {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .unit-option {
+            margin-bottom: 8px;
+        }
+        .prerequisite {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            margin-left: 20px;
+            font-style: italic;
+        }
+        .units-container {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    
     <div class="header">
         <img src="CIHE_logo.png" alt="Logo" class="logo">
         <div class="nav">
@@ -15,38 +51,21 @@
                 <a href="admin.html" class="nav-link">Dashboard</a>
                 <div class="dropdown-content">
                     <a href="search.html">Select Course and Units</a>
-                    <a href="Addsemester.html">Add Semester</a>
+                    <a href="Addsemester.html" class="active">Add Units</a>
                 </div>
             </div>
             <a href="studentpp.html">Student Profile</a>
-            <a href = "index.html">Logout</a>
-            <div class="dropdown">
-                <a href="#">Settings</a>
-                <div class="dropdown-content">
-                    <a href="#popForm">Change Password</a>
-                </div>
-            </div>
+            <a href="#">About</a>
+            <a href="#">Settings</a>
         </div>
     </div>
- <div id="popForm" class="popUp">
-        <a href="#" class="close-btn">✖</a>
-        <form class="popMe">
-          <label for="old">Old Password <span class="astrick">*</span></label>
-          <input class="user" type="password" id="password" name="password" required>
-          <label for="new">New Passowrd <span class="astrick">*</span></label>
-          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
-          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
-          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
-          
-          <button class="change" type="submit">Change</button>
-        </form>
-      </div>
+
     <div class="main">
         <h1>Add Units for Program</h1>
         <form action="submit_units.php" method="POST" class="semester-form">
             <div class="form-group">
                 <label for="semester">Select Semester</label>
-                <select id="semester" name="semester" required>
+                <select id="semester" name="semester" required onchange="filterUnits()">
                     <option value="">Select a semester</option>
                     <option value="semester1_2025">Semester 1, 2025</option>
                     <option value="semester2_2025">Semester 2, 2025</option>
@@ -55,7 +74,7 @@
 
             <div class="form-group">
                 <label for="program">Select Program</label>
-                <select id="program" name="program" required>
+                <select id="program" name="program" required onchange="filterUnits()">
                     <option value="">Select a program</option>
                     <option value="bachelor_it">Bachelor of IT</option>
                     <option value="master_it">Master of IT</option>
@@ -63,14 +82,205 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="units">Select Units</label>
-                <select id="units" name="units[]" multiple required>
-                    <option value="unit1">Unit 1 - Introduction to IT</option>
-                    <option value="unit2">Unit 2 - Advanced IT</option>
-                    <option value="unit3">Unit 3 - Web Development</option>
-                    <option value="unit4">Unit 4 - Cybersecurity</option>
-                </select>
+            <div class="units-container" id="unitsContainer">
+               
+                <div class="level-section" data-program="bachelor_it">
+                    <div class="level-title">Bachelor of IT - Level 1</div>
+                    
+                    <!-- Semester 1 -->
+                    <div class="semester-group" data-semester="semester1">
+                        <div class="semester-title">Semester 1</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT101" name="units[]" value="ICT101">
+                            <label for="ICT101">ICT101 - Introduction to Information Technology</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT103" name="units[]" value="ICT103">
+                            <label for="ICT103">ICT103 - Programming</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="BUS101" name="units[]" value="BUS101">
+                            <label for="BUS101">BUS101 - Business Communication</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="BUS102" name="units[]" value="BUS102">
+                            <label for="BUS102">BUS102 - Management Principles</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Semester 2 -->
+                    <div class="semester-group" data-semester="semester2">
+                        <div class="semester-title">Semester 2</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="BUS107" name="units[]" value="BUS107">
+                            <label for="BUS107">BUS107 - Business Ethics in Digital Age</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT104" name="units[]" value="ICT104">
+                            <label for="ICT104">ICT104 - Fundamentals of Computability</label>
+                            <div class="prerequisite">Prerequisite: ICT103 Programming</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT102" name="units[]" value="ICT102">
+                            <label for="ICT102">ICT102 - Networking</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT201" name="units[]" value="ICT201">
+                            <label for="ICT201">ICT201 - Database Systems</label>
+                        </div>
+                    </div>
+                </div>
+                
+             
+                <div class="level-section" data-program="bachelor_it">
+                    <div class="level-title">Bachelor of IT - Level 2</div>
+                    
+                    <!-- Semester 3 -->
+                    <div class="semester-group" data-semester="semester1">
+                        <div class="semester-title">Semester 3</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT202" name="units[]" value="ICT202">
+                            <label for="ICT202">ICT202 - Cloud Computing</label>
+                            <div class="prerequisite">Prerequisite: ICT102 Networking</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT203" name="units[]" value="ICT203">
+                            <label for="ICT203">ICT203 - Web Application Development</label>
+                            <div class="prerequisite">Prerequisites: ICT103 Programming, ICT201 Database Systems</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT206" name="units[]" value="ICT206">
+                            <label for="ICT206">ICT206 - Software Engineering</label>
+                            <div class="prerequisite">Prerequisite: ICT103 Programming</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT208" name="units[]" value="ICT208">
+                            <label for="ICT208">ICT208 - Algorithms and Data Structures</label>
+                            <div class="prerequisite">Prerequisite: ICT104 Fundamentals of Computability</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Semester 4 -->
+                    <div class="semester-group" data-semester="semester2">
+                        <div class="semester-title">Semester 4</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT205" name="units[]" value="ICT205">
+                            <label for="ICT205">ICT205 - Mobile Application Development</label>
+                            <div class="prerequisite">Prerequisites: ICT103 Programming, ICT201 Database Systems<br>
+                            Pre or co-requisite: ICT203 Web Application Development</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT204" name="units[]" value="ICT204">
+                            <label for="ICT204">ICT204 - Cyber Security</label>
+                            <div class="prerequisite">Prerequisites: ICT102 Networking, ICT101 Introduction to Information Technology</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT301" name="units[]" value="ICT301">
+                            <label for="ICT301">ICT301 - Information Technology Project Management</label>
+                            <div class="prerequisite">Prerequisites: BUS101 Business Communication, BUS102 Management Principles<br>
+                            Co-requisite: ICT206 Software Engineering</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICTXXX" name="units[]" value="ICTXXX">
+                            <label for="ICTXXX">ICT Elective</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Level 3 -->
+                <div class="level-section" data-program="bachelor_it">
+                    <div class="level-title">Bachelor of IT - Level 3</div>
+                    
+                    <!-- Semester 5 -->
+                    <div class="semester-group" data-semester="semester1">
+                        <div class="semester-title">Semester 5</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT313" name="units[]" value="ICT313">
+                            <label for="ICT313">ICT313 - Big Data for Software Development</label>
+                            <div class="prerequisite">Prerequisites: ICT103 Programming, ICT201 Database Systems</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT309" name="units[]" value="ICT309">
+                            <label for="ICT309">ICT309 - Information Technology Governance, Risk and Compliance</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT307" name="units[]" value="ICT307">
+                            <label for="ICT307">ICT307 - Project 1 (Analysis and Design)</label>
+                            <div class="prerequisite">Prerequisites: ICT203 Web Application Development, ICT201 Database Systems, ICT206 Software Engineering</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT305" name="units[]" value="ICT305">
+                            <label for="ICT305">ICT305 - Topics in IT</label>
+                            <div class="prerequisite">Prerequisite: 160 credit points</div>
+                        </div>
+                    </div>
+                    
+                   
+                    <div class="semester-group" data-semester="semester2">
+                        <div class="semester-title">Semester 6</div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT306" name="units[]" value="ICT306">
+                            <label for="ICT306">ICT306 - Advanced Cyber Security</label>
+                            <div class="prerequisite">Prerequisite: ICT204 Cyber Security</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT308" name="units[]" value="ICT308">
+                            <label for="ICT308">ICT308 - Project 2 (Programming and Testing)</label>
+                            <div class="prerequisite">Prerequisite: ICT307 Project 1 (Analysis and Design)</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICT310" name="units[]" value="ICT310">
+                            <label for="ICT310">ICT310 - Information Technology Services Management</label>
+                            <div class="prerequisite">Prerequisite: 160 credit points</div>
+                        </div>
+                        <div class="unit-option">
+                            <input type="checkbox" id="ICTXXX2" name="units[]" value="ICTXXX2">
+                            <label for="ICTXXX2">ICT Elective or BUS301 The Digital Economy or BUS306 Work Integrated Learning</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Electives -->
+                <div class="level-section" data-program="bachelor_it">
+                    <div class="level-title">Elective Options</div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="BUS201" name="units[]" value="BUS201">
+                        <label for="BUS201">BUS201 - Organisational Behaviour</label>
+                        <div class="prerequisite">Prerequisite: BUS102 Management Principles</div>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="ICT207" name="units[]" value="ICT207">
+                        <label for="ICT207">ICT207 - Knowledge Management</label>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="BUS301" name="units[]" value="BUS301">
+                        <label for="BUS301">BUS301 - The Digital Economy</label>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="BUS307" name="units[]" value="BUS307">
+                        <label for="BUS307">BUS307 - Work-Integrated Learning (Internship)</label>
+                        <div class="prerequisite">Prerequisite: 120 credit points</div>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="ICT304" name="units[]" value="ICT304">
+                        <label for="ICT304">ICT304 - Distributed Computing</label>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="ICT302" name="units[]" value="ICT302">
+                        <label for="ICT302">ICT302 - Secure Software Development</label>
+                        <div class="prerequisite">Prerequisites: ICT103 Programming, ICT104 Fundamentals of Computability, ICT208 Algorithms and Data Structures</div>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="ICT311" name="units[]" value="ICT311">
+                        <label for="ICT311">ICT311 - Software Defined Networks</label>
+                        <div class="prerequisite">Prerequisites: ICT102 Networking, ICT103 Programming</div>
+                    </div>
+                    <div class="unit-option">
+                        <input type="checkbox" id="ICT312" name="units[]" value="ICT312">
+                        <label for="ICT312">ICT312 - Advanced Topics in Web Development</label>
+                        <div class="prerequisite">Prerequisite: ICT203 Web Application Development</div>
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="submit-button">Add Units</button>
@@ -81,5 +291,41 @@
         Copyright &copy; 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved.<br>
         Privacy Policy | Terms of Use
     </div>
+
+    <script>
+        function filterUnits() {
+            const program = document.getElementById('program').value;
+            const semester = document.getElementById('semester').value;
+            
+            // Show/hide based on program selection
+            document.querySelectorAll('.level-section').forEach(section => {
+                if (program === '' || program === 'bachelor_it') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            
+
+            const semesterMap = {
+                'semester1_2025': 'semester1',
+                'semester2_2025': 'semester2'
+            };
+            const selectedSemester = semesterMap[semester] || '';
+            
+            document.querySelectorAll('.semester-group').forEach(group => {
+                if (selectedSemester === '' || group.getAttribute('data-semester') === selectedSemester) {
+                    group.style.display = 'block';
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        }
+        
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            filterUnits();
+        });
+    </script>
 </body>
 </html>
