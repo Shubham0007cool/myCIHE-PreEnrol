@@ -7,12 +7,10 @@
     <link rel="stylesheet" href="index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
      </head>
-<body>
+<body id="blurTarget">
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-        <ul>
-            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
-        </ul>
+       
     </div>
 
    
@@ -46,15 +44,7 @@
         </div>
     </div>
     
-    <script>
-    window.addEventListener('scroll', function() {
-        const nav = document.querySelector('.nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });</script>
+    
 <script>
     document.querySelector('.hamburger').addEventListener('click', () => {
     document.querySelector('.links').classList.toggle('active');
@@ -74,31 +64,42 @@
           <button class="change" type="submit">Change</button>
         </form>
       </div>
-    <style>
-        
-    </style>
-    <header class="loggedIn">
+   
+      <header class="loggedIn">
         <h2>Welcome, Student</h2>
         <div class="buttons">
             <i class="fa-solid fa-bell"></i>
-             <button id="destroy" onclick="return logOut()"><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
-            
-        </div>
-        <!--Script to confirm is user wants to logout or not-->
-        <script> 
-            function logOut(){
-                var confirmLogout = confirm ("Are you sure to logout?");
-                if (confirmLogout){
-                    window.location.href = "index.html";
-                    return ture;
-                }
-               else {
-                return false;
-               }
-            }
-            
-             </script>
+             <button id="destroy" onclick="return showModel()"><a href="logoutpop.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+         </div>
     </header>
+    
+<script> 
+        function showModel(){
+            document.getElementById("logoutMode").style.display = "flex";
+            document.body.classList.add("blurred"); /* Blurs the whole body content when clicked on logout button*/
+           
+            return false;
+            }
+        function hideModel(){
+            document.getElementById("logoutMode").style.display = "none";
+            document.body.classList.remove("blurred"); /* remmoves the blur of the whole body content when clicked on NO */
+        }
+        function confirmLogout(){
+        window.location.href = "index.html";
+        }
+</script>
+
+    <div class="confirm-btns" id="logoutMode" style="display: none; justify-content: center;">
+        <div class="comfirm-box">
+          <p class="sure">Are you sure to logout?</p>
+           <div class="confirm-buttons">
+               <button onclick="return confirmLogout()" class="yes-btn">Yes</button>
+               <button onclick="return hideModel()" class="no-btn">No</button>
+           </div>
+        </div>
+    </div>
+
+    
 <!-- Welcome Note Section -->
 <section class="welcome-note">
     <div class="welcome-container">
@@ -131,8 +132,7 @@
         </div>
     </div>
 </section>
-<style>
-    </style>
+
 <section class="slider-section">
     <div class="courseslides">
         <div class="college-heading">
@@ -221,50 +221,11 @@
                     <a href="subjectreg.html" class="btn4-primary">Enroll Now<i class="fas fa-arrow-right"></i> </a>
                 </div>
             </div>
-            <style>
-                .enrol-button{
-                    display: flex;
-                    gap: 15px;
-                    margin-top: 30px;
-                    flex-wrap: wrap;
-                }
-                .son a{
-               
-                color: black;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
-                padding: 12px 25px;         
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                }
-                .son i{
-                    padding: 5px 5px;
-                }
-
-                .btn4-primary{
-                    color: black;
-                border: 1px solid #ccc;
-                border-radius: 20px;
-                box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
-                padding: 12px 25px;         
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                }
-                 .btn4-primary:hover{
-                transform: translateY(-3px);
-                text-decoration: none;
-                color: white;
-                box-shadow: 0 6px 20px rgba(238, 26, 26, 0.799);
-                background-color: #e05d00;
-                        }
-            </style>
             
             <!-- Upcoming Enrollment Period -->
             <div class="enrollment-card upcoming">
                 <div class="enrollment-header">
-                    <h3>Predictive Enrollment Period</h3>
+                    <h3>Predictive Enrollment Period <small style="color: gray; cursor: text; font-style: italic;">Note:- This is just a prediction, dates can change preidiocally.</small></h3>
                     <span class="status-badge">Coming Soon</span>
                 </div>
                 <div class="enrollment-details">
@@ -292,228 +253,6 @@
         </div>
 </section>
 
-<style>
-/* Enrollment Info Styles */
-.enrollment-info {
-    padding: 60px 0;
-    background-color: #f9f9f9;
-}
-.enrollment-help{
-    background-color: white;
-    padding: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-.enrollment-help .btn4-primary{
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
-.enrollment-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.enrollment-container h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    color: #2c3e50;
-    font-size: 2rem;
-}
-
-.enrollment-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.enrollment-card {
-    background: white;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-}
-
-.enrollment-card:hover {
-    transform: translateY(-5px);
-}
-
-.enrollment-card.current {
-    border-top: 4px solid #27ae60;
-}
-
-.enrollment-card.upcoming {
-    border-top: 4px solid #f39c12;
-}
-
-.enrollment-card.dates {
-    border-top: 4px solid #3498db;
-}
-
-.enrollment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.enrollment-header h3 {
-    margin: 0;
-    color: #2c3e50;
-}
-
-.status-badge {
-    background-color: #27ae60;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-.upcoming .status-badge {
-    background-color: #f39c12;
-    width: 108px;
-}
-
-.enrollment-details p {
-    margin: 10px 0;
-    color: #555;
-}
-
-.enrollment-details p strong {
-    color: #2c3e50;
-}
-
-.countdown {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-.days-remaining {
-    font-weight: bold;
-    color: #e74c3c;
-    font-size: 1.2rem;
-}
-
-.progress-bar {
-    height: 8px;
-    background-color: #ecf0f1;
-    border-radius: 4px;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-.progress {
-    height: 100%;
-    background-color: #27ae60;
-    transition: width 0.5s ease;
-}
-
-.date-list {
-    list-style: none;
-    padding: 0;
-}
-
-.date-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px dashed #eee;
-}
-
-.date-list li:last-child {
-    border-bottom: none;
-}
-
-.date {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.event {
-    color: #555;
-    text-align: right;
-}
-
-.enroll-btn, .remind-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.enroll-btn {
-    background-color: #27ae60;
-    color: white;
-    border: none;
-}
-
-.enroll-btn:hover {
-    background-color: #219653;
-}
-
-.remind-btn {
-    background-color: #f8f9fa;
-    color: #f39c12;
-    border: 2px solid #f39c12;
-}
-
-.remind-btn:hover {
-    background-color: #f39c12;
-    color: white;
-}
-
-.enrollment-notes {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.enrollment-notes h3 {
-    color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.enrollment-notes ul {
-    list-style: none;
-    padding: 0;
-}
-
-.enrollment-notes li {
-    padding: 8px 0;
-    color: #555;
-}
-
-.enrollment-notes i {
-    color: #e74c3c;
-    margin-right: 10px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .enrollment-cards {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
 
 <script>
 // Countdown Timer Calculation
@@ -567,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2 style="text-align: center;">Our IT Degrees and Other Programs</h2>
     <p style="text-align: center;">Explore our IT degree offerings and their curriculum</p>
     
-<div class="tabs-container">
+ <div class="tabs-container">
         <div class="tabs">
             <button class="tab-button active" data-tab="bachelor">Bachelor of IT</button>
             <button class="tab-button" data-tab="master">Masters of IT</button>
@@ -948,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
-</div>
+                </div>
 </section>
 <section class="cta">
     <div class="journey">
