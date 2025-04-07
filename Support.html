@@ -11,7 +11,7 @@
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-        
+       
     </div>
 
    
@@ -63,18 +63,39 @@
           <button class="change" type="submit">Change</button>
         </form>
       </div>
-   
       <header class="loggedIn">
         <h2>Welcome, Student</h2>
         <div class="buttons">
             <i class="fa-solid fa-bell"></i>
-            <button><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
-        </div>
+             <button id="destroy" onclick="return showModel()"><a href="logoutpop.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+         </div>
     </header>
+    
+<script> 
+        function showModel(){
+            document.getElementById("logoutMode").style.display = "flex";
+            document.body.classList.add("blurred"); /* Blurs the whole body content when clicked on logout button*/
+           
+            return false;
+            }
+        function hideModel(){
+            document.getElementById("logoutMode").style.display = "none";
+            document.body.classList.remove("blurred"); /* remmoves the blur of the whole body content when clicked on NO */
+        }
+        function confirmLogout(){
+        window.location.href = "index.html";
+        }
+</script>
 
-    <style>
-
-        </style>
+    <div class="confirm-btns" id="logoutMode" style="display: none; justify-content: center;">
+        <div class="comfirm-box">
+          <p class="sure">Are you sure to logout?</p>
+           <div class="confirm-buttons">
+               <button onclick="return confirmLogout()" class="yes-btn">Yes</button>
+               <button onclick="return hideModel()" class="no-btn">No</button>
+           </div>
+        </div>
+    </div>
 
     <div class="contactus">
         <h1 class="getme">
@@ -158,14 +179,14 @@
             margin-bottom: 15px;
             display: block;
         }
-
-        @media (max-width: 768px) {
+                @media (max-width: 768px) {
             .location1, .location2, .location3 {
             display: block;    
             }
-        }
-
-        @media (max-width: 480px) {
+            .support {
+                flex-direction: column;
+                gap: 60px;
+            }
             h1 {
                 font-size: 1.2rem;
                 justify-content: center;
@@ -177,15 +198,15 @@
                 justify-content: center;
                 text-align: center;
             }
-            .support {
-                flex-direction: column;
-                gap: 60px;
-            }
-            
+           .number{
+            text-align: left;
+            justify-content: center;
+           }
             .call, .email {
-                width: 60%;
+                width: 85%;
                 align-items: center;
-                margin: auto;
+                margin-right: 20px;
+                margin-left: 20px;
                 text-align: left;
                 font-size: 10px;
             }
@@ -208,6 +229,8 @@
                 display: block;
             }
         }
+
+       
         </style>
        
        <h2 style="text-align: center; justify-content: center; margin-top: 20px; text-transform: uppercase; color: orange;">Our Locations..</h2>
