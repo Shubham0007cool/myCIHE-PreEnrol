@@ -700,26 +700,6 @@ body.blurred > *:not(#logoutMode) {
         box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
         background-color: #e05d00;
     }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .welcome-note h1 {
-            font-size: 2rem;
-        }
-        
-        .welcome-note h2 {
-            font-size: 1.5rem;
-        }
-        
-        .welcome-buttons {
-            flex-direction: column;
-        }
-        
-        .btn-primary, .btn-secondary {
-            width: 100%;
-            text-align: center;
-        }
-    }
     .container5{
         border: 1px solid #ddd;
         max-width: 400px;
@@ -2551,11 +2531,172 @@ body.blurred > *:not(#logoutMode) {
     footer a:hover {
         text-decoration: underline; /* Add underline on hover for accessibility */
     }  /*Footer section */
-
+    .cta {
+        background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('cta-bg.jpg') center/cover;
+        color: white;
+        padding: 80px 0;
+        text-align: center;
+    }
+    
+    .cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .cta p {
+        max-width: 700px;
+        margin: 0 auto 30px;
+        font-size: 1.1rem;
+    }
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        animation: fadeIn 1s ease 0.6s both;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        text-decoration: none;
+        color: white;
+        box-shadow: 0 6px 20px rgba(238, 26, 26, 0.799);
+        background-color: #e05d00;
+    }
+    
+    .btn-secondary {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+        text-decoration: none;
+        color: white;
+        box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        background-color: #e05d00;
+    }
+    
 
 .btn8, .send-btn{
     width: 50%;
 }
+.find
+{
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+margin-bottom: 40px;
+    
+}
+.region1, .region2, .region3 {
+border: 1px solid #ccc;
+margin-top: 10px;
+background-color: white;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+padding: 30px;
+flex: 1;
+gap: 0;
+margin-left: 20px;
+margin-right: 20px;
+min-width: 200px;
+}
+.region1:hover, .region2:hover, .region3:hover{
+transform: translateY(-5px);
+cursor: pointer;
+box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.maps{
+width: 100%;
+border-radius: 8px;
+overflow: hidden;
+border: 1px solid #ddd;
+}
+.maps iframe {
+width: 100%;
+height: 250px;
+border: none;
+}
+.canberra, .canberra2, .Sydney {
+color: var(--primary-color);
+font-size: 1.5rem;
+margin-bottom: 10px;
+font-weight: 600;
+}
+
+.location1, .location2, .location3, .subtext{
+color: var(--dark-gray);
+margin-bottom: 15px;
+display: block;
+}
+    @media (max-width: 768px) {
+.location1, .location2, .location3 {
+display: block;    
+}
+.support {
+    flex-direction: column;
+    gap: 60px;
+}
+h1 {
+    font-size: 1.2rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.subtext {
+    font-size: 0.8rem;
+    justify-content: center;
+    text-align: center;
+}
+.number{
+text-align: left;
+justify-content: center;
+}
+.call, .email {
+    width: 80%;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 12px;
+    text-align: left;
+    font-size: 10px;
+}
+.phone {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.num, .Email {
+    font-size: 20px;
+    margin-top: -20px;
+}
+
+.numy {
+    font-size: 16px;
+}
+.maps iframe {
+    height: 200px;
+    display: block;
+}
+}
+
 
 
 @media (max-width: 600px) {
@@ -2606,6 +2747,33 @@ body.blurred > *:not(#logoutMode) {
             .location1 select{
                 width: 160%;
                 margin:  -26%;
+            }
+            .locations select{
+                width: 214px;
+                margin: -262px;
+                margin-top: 21px;
+            }
+            .fa-bell {
+                height: 23px;
+                margin-top: 34px;
+            }
+            .buttons {
+                width: 200px;
+                height: 75px;
+                 display: flex
+            }
+              
+            .buttons button {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+            .buttons button .fa-door-open {
+                margin-top: -5px;
+            }
+            .buttons button a {
+                display: flex;
+                margin: auto -10px;
+                margin-top: 4px;
             }
            .images img{
             margin-left: -79px;
@@ -2658,7 +2826,7 @@ body.blurred > *:not(#logoutMode) {
             }
         
             .nav .links ul li {
-                margin: 14px -93px;
+                margin: 14px -87px;
             }
             .link1 ul {
                 flex-direction: column;
@@ -2719,7 +2887,7 @@ body.blurred > *:not(#logoutMode) {
                 text-align: center;
                 font-size: 20px;
             }
-            .saying1, .saying2 {
+            .testimonials, .saying1, .saying2 {
                 width: 100%;
                 margin-bottom: 20px;
                 margin: auto;
@@ -2766,8 +2934,20 @@ body.blurred > *:not(#logoutMode) {
                 font-size: 10px;
                 text-align: center;
             }
+            .content-container .inter{
+                font-size: 25px;
+            }
+            .content-container .test{
+                width: 326px;
+                font-size: 20px;
+                margin-left: -29px;
+            }
+            .content-container .section-description{
+                width: 360px;
+                text-align: center;
+            }
                 .internships {
-                    width: 100%;
+                    width: 90%;
                     height: auto;
                 }
                 .popUp {
@@ -2810,6 +2990,128 @@ body.blurred > *:not(#logoutMode) {
                 text-align: center;
                 margin: auto 20px;
             }
+            .scholarships-section {
+                background-color: #f9f9f9;
+                padding: 60px 0;
+                font-family: 'Arial', sans-serif;
+            }
+            
+            .content-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .section-title {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 20px;
+                font-size: 2.5rem;
+            }
+            
+            .section-description {
+                text-align: center;
+                color: #7f8c8d;
+                max-width: 800px;
+                margin: 0 auto 40px;
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            
+            .scholarships-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                width: 90%;
+                margin-bottom: 40px;
+            }
+            
+            .scholarship-card {
+                background: white;
+                border-radius: 10px;
+                padding: 25px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease;
+            }
+            
+            .scholarship-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .scholarship-icon {
+                font-size: 2.5rem;
+                color: #e67e22;
+                margin-bottom: 15px;
+            }
+            
+            .scholarship-card h3 {
+                color: #2c3e50;
+                margin-bottom: 15px;
+            }
+            
+            .scholarship-card ul {
+                padding-left: 20px;
+                color: #7f8c8d;
+                margin-bottom: 20px;
+            }
+            
+            .scholarship-card ul li {
+                margin-bottom: 8px;
+                line-height: 1.4;
+            }
+            
+            .apply-button {
+                display: inline-block;
+                color: #e67e22;
+                font-weight: bold;
+                text-decoration: none;
+                border-bottom: 2px solid #e67e22;
+                padding-bottom: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            .apply-button:hover {
+                color: #d35400;
+                border-color: #d35400;
+            }
+            
+            .scholarship-cta {
+                text-align: center;
+                margin-top: 40px;
+            }
+            
+            .scholarship-cta p {
+                color: #7f8c8d;
+                margin-bottom: 20px;
+            }
+            
+            .cta-button {
+                background-color: #e67e22;
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                margin: 0 10px;
+                transition: background-color 0.3s ease;
+            }
+            
+            .cta-button:hover {
+                background-color: #d35400;
+            }
+            
+            .cta-button.secondary {
+                background-color: transparent;
+                color: #e67e22;
+                border: 2px solid #e67e22;
+            }
+            
+            .cta-button.secondary:hover {
+                background-color: #e67e22;
+                color: white;
+            }
+
             .log, .nav {
                 gap: 10px;
                 text-align: center;
@@ -2852,14 +3154,6 @@ body.blurred > *:not(#logoutMode) {
                 align-items: center;
                 justify-content: left;
                 text-align: left;
-            }
-            .buttons {
-                width: 200px;
-            }
-              
-            .buttons button {
-                padding: 6px 15px;
-                font-size: 0.9rem;
             }
             .welcome-text{
                 text-align: left;
@@ -2906,9 +3200,13 @@ body.blurred > *:not(#logoutMode) {
             .para {
                 font-size: 1em;
             }
+            .btn .btn-primary{
+                width: 40px;
+            }
         }
 
-
+ /* Responsive adjustments */
+ 
     @media screen and (max-width: 400px) {
         .welcome {
             padding: 10px;
