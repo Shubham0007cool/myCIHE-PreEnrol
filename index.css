@@ -1,5 +1,7 @@
 
-
+body.blurred > *:not(#logoutMode) {
+    filter: blur(6px) !important;
+}
        body {
             margin: 0;
             padding: 0;
@@ -17,6 +19,380 @@
         html {
             scroll-behavior: smooth;
         }
+
+        .confirm-box {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          }
+      
+          .confirm-box, .sure {
+            font-size: 25px;
+            color: orangered;
+            justify-content: center;
+            margin-bottom: 20px;
+          }
+              .confirm-btns{
+                  display: flex;
+                  margin: auto;
+                  width: 400px;
+                  box-shadow: 0 6px 20px rgba(135, 59, 8, 0.799);
+                  border-radius: 35px;
+                  background-color: #ccc;
+                  text-align: center;
+                  justify-content: center;
+                  gap: 20px;
+              }
+              .yes-btn{
+                color: black;
+                width: 150px;
+                border: 2px solid gray;
+                border-radius: 20px;
+                padding: 12px 25px;         
+                font-weight: 600px;
+                margin-bottom: 20px;
+                background-color: transparent;
+                text-decoration: none;
+                transition: all 0.3s ease;
+              }
+              .yes-btn:hover{
+                transform: translateY(-3px);
+                text-decoration: none;
+                color: white;
+                border: 2px solid yellow;
+                box-shadow: 0 6px 20px rgba(238, 26, 26, 0.799);
+                background-color: #e05d00;
+              }
+              .no-btn{
+                color: black;
+                width: 150px;
+                border: 2px solid gray;
+                border-radius: 20px;
+                background-color: transparent;
+                padding: 12px 25px;         
+                font-weight: 600px;
+                margin-bottom: 20px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+              }
+              .no-btn:hover{
+                transform: translateY(-3px);
+                text-decoration: none;
+                color: white;
+                border: 2px solid yellow;
+                box-shadow: 0 6px 20px rgba(228, 248, 4, 0.799);
+                background-color: #e05d00;
+              }
+              .enrol-button{
+                display: flex;
+                gap: 15px;
+                margin-top: 30px;
+                flex-wrap: wrap;
+            }
+            .son a{
+           
+            color: black;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
+            padding: 12px 25px;         
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            }
+            .son i{
+                padding: 5px 5px;
+            }
+
+            .btn4-primary{
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
+            padding: 12px 25px;         
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            }
+             .btn4-primary:hover{
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 6px 20px rgba(238, 26, 26, 0.799);
+            background-color: #e05d00;
+                    }
+
+        .sub-contents{
+            display: flex;
+            gap: 2px;
+            margin: auto;
+        }
+        .initial1{
+        text-transform: uppercase; 
+        font-weight: bold;
+        border-radius: 60px;
+        padding: 15px 10px;
+        margin: 15px auto;
+        font-size: 40px;
+        background-color: grey;
+        opacity: .5;
+        color: black;
+        margin-left: 20px;
+        }
+        .initial2{
+            margin: 30px auto;
+            padding: 5px;
+            
+        }
+        .details-container{
+        border: 1px solid #ddd;
+        max-width: 95%;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        }
+        .course-taken{
+            list-style: none;
+            margin: auto -41px;
+        }
+        .course-taken li{
+            text-align: left;
+            margin: 20px auto;
+        }
+        .details-container{
+           display: flex;
+        }
+        .details1{
+           margin-left: 20px;
+        }
+        .details2{
+            margin:auto;
+            margin-top: -10px;
+        }
+/*Enrollment period css*/
+/* Enrollment Info Styles */
+.enrollment-info {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+.enrollment-help{
+    background-color: white;
+    padding: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.enrollment-help .btn4-primary{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.enrollment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.enrollment-container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.enrollment-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.enrollment-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.enrollment-card:hover {
+    transform: translateY(-5px);
+}
+
+.enrollment-card.current {
+    border-top: 4px solid #27ae60;
+}
+
+.enrollment-card.upcoming {
+    border-top: 4px solid #f39c12;
+}
+
+.enrollment-card.dates {
+    border-top: 4px solid #3498db;
+}
+
+.enrollment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.enrollment-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.status-badge {
+    background-color: #27ae60;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.upcoming .status-badge {
+    background-color: #f39c12;
+    width: 108px;
+}
+
+.enrollment-details p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.enrollment-details p strong {
+    color: #2c3e50;
+}
+
+.countdown {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.days-remaining {
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #27ae60;
+    transition: width 0.5s ease;
+}
+
+.date-list {
+    list-style: none;
+    padding: 0;
+}
+
+.date-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.date-list li:last-child {
+    border-bottom: none;
+}
+
+.date {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.event {
+    color: #555;
+    text-align: right;
+}
+
+.enroll-btn, .remind-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.enroll-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+}
+
+.enroll-btn:hover {
+    background-color: #219653;
+}
+
+.remind-btn {
+    background-color: #f8f9fa;
+    color: #f39c12;
+    border: 2px solid #f39c12;
+}
+
+.remind-btn:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+.enrollment-notes {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.enrollment-notes h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.enrollment-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.enrollment-notes li {
+    padding: 8px 0;
+    color: #555;
+}
+
+.enrollment-notes i {
+    color: #e74c3c;
+    margin-right: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .enrollment-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
     /* CSS for the tabbed interface */
     .degrees-tabs {
         padding: 40px 20px;
