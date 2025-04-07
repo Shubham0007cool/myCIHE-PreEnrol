@@ -11,9 +11,7 @@
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-        <ul>
-            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
-        </ul>
+       
     </div>
 
     <div class="nav">
@@ -65,14 +63,40 @@
           <button class="change" type="submit">Change</button>
         </form>
       </div>
-   
-    <header class="loggedIn">
+      <header class="loggedIn">
         <h2>Welcome, Student</h2>
         <div class="buttons">
             <i class="fa-solid fa-bell"></i>
-             <button><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
-        </div>
+             <button id="destroy" onclick="return showModel()"><a href="logoutpop.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+         </div>
     </header>
+    
+<script> 
+        function showModel(){
+            document.getElementById("logoutMode").style.display = "flex";
+            document.body.classList.add("blurred"); /* Blurs the whole body content when clicked on logout button*/
+           
+            return false;
+            }
+        function hideModel(){
+            document.getElementById("logoutMode").style.display = "none";
+            document.body.classList.remove("blurred"); /* remmoves the blur of the whole body content when clicked on NO */
+        }
+        function confirmLogout(){
+        window.location.href = "index.html";
+        }
+</script>
+
+    <div class="confirm-btns" id="logoutMode" style="display: none; justify-content: center;">
+        <div class="comfirm-box">
+          <p class="sure">Are you sure to logout?</p>
+           <div class="confirm-buttons">
+               <button onclick="return confirmLogout()" class="yes-btn">Yes</button>
+               <button onclick="return hideModel()" class="no-btn">No</button>
+           </div>
+        </div>
+    </div>
+
 
     <div class="head">
         <h1 style="justify-content: center; text-align: center;">Search Course</h1>
