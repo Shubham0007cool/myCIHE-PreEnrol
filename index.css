@@ -2574,7 +2574,10 @@ body.blurred > *:not(#logoutMode) {
     @media (max-width: 768px) {
         .container {
             flex-direction: column;
-            width: 10%;
+            width: 80%;
+        }
+        .container p{
+            text-align: center;
         }
         .login-box, .info-box {
             padding: 15px;
@@ -2584,12 +2587,7 @@ body.blurred > *:not(#logoutMode) {
             margin-bottom: 20px;
         }
     }
-    @media (max-width: 480px){
-        .nav .links{
-            margin-top: 10px;
-            margin-right: -121px;
-        }
-    }
+    
 
   @media screen and (max-width: 768px) {
             .nav .links {
@@ -2609,7 +2607,9 @@ body.blurred > *:not(#logoutMode) {
                 width: 160%;
                 margin:  -26%;
             }
-           
+           .images img{
+            margin-left: -79px;
+           }
         .sub-contents{
             display: flex;
             flex-direction: column;
@@ -2642,9 +2642,9 @@ body.blurred > *:not(#logoutMode) {
                 
                 background: gray;
             }
-        .logo{
-            margin-top: 25px;
-        }
+            .logo{
+                margin-top: 25px;
+            }
             .nav .hamburger {
                 display: block;
                 color: yellow;
@@ -2662,39 +2662,39 @@ body.blurred > *:not(#logoutMode) {
             }
             .link1 ul {
                 flex-direction: column;
-                gap: 0.5rem;
+                margin-left: -289px;
             }
 
-           .link1, .logged a i{
-        flex-direction: column;
-        align-items: center;
-        margin: auto 30px;
-    }
-        .navbar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-          .logged {
-        margin-right: 0;
-        margin-bottom: 8px;
-    }
-    .loggedIn h2 {
-        font-size: 10px;
-        width: 10%;
-    }
-    
-    .login-box, .info-box {
-        padding: 15px;
-    }
-    .logo {
-        margin-bottom: 10px;
-    }
-    
-    .link1 {
-        flex-direction: column;
-        align-items: center;
-    }
+            .navbar .link1 ul li a{
+            flex-direction: column;
+            align-items: center;
+            margin: auto 30px;
+            }
+                .navbar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+                  .logged {
+                margin-left: -220px;
+                margin-bottom: 8px;
+            }
+            .loggedIn h2 {
+                font-size: 10px;
+                width: 10%;
+            }
+
+            .login-box, .info-box {
+                padding: 15px;
+            }
+            .logo {
+                margin-bottom: 10px;
+            }
+
+            .link1 {
+                flex-direction: column;
+                align-items: center;
+            }
             .cards {
                 flex-direction: column;
             }
@@ -2761,47 +2761,47 @@ body.blurred > *:not(#logoutMode) {
                 width: 100%;
                 margin-bottom: 10px;
             }
-        .internships button{
-            margin-bottom: 40px;
-            font-size: 10px;
-            text-align: center;
-        }
-            .internships {
-                width: 100%;
-                height: auto;
+            .internships button{
+                margin-bottom: 40px;
+                font-size: 10px;
+                text-align: center;
             }
-            .popUp {
-                width: 50%;
-                margin-left: -58px;
-            }
-        .test, .para{
-            width: 400px;
-            text-align: center;
-            margin:auto;
-            margin-bottom: 20px;
-            }
-        .integrity{
-            flex-direction: column;
-            align-items: center;
-            }
+                .internships {
+                    width: 100%;
+                    height: auto;
+                }
+                .popUp {
+                    width: 50%;
+                    margin-left: -58px;
+                }
+            .test, .para{
+                width: 400px;
+                text-align: center;
+                margin:auto;
+                margin-bottom: 20px;
+                }
+            .integrity{
+                flex-direction: column;
+                align-items: center;
+                }
 
-        .academic, .int{
-            font-size: 20px;
-            text-align: center;
-            width: 300px;
-        }
-        .number{
-            text-align: center;
-        }
-        .email, .Email{
-            text-align: center;
-            margin-top: -50px;
-            justify-content: center;
-        }
-        .placeholder img{
-            margin-left: 20px;
-        }
-        .advertise{
+            .academic, .int{
+                font-size: 20px;
+                text-align: center;
+                width: 300px;
+            }
+            .number{
+                text-align: center;
+            }
+            .email, .Email{
+                text-align: center;
+                margin-top: -50px;
+                justify-content: center;
+            }
+            .placeholder img{
+                margin-left: 20px;
+            }
+            .advertise{
             text-align: center;
             margin: 20px;
             }
@@ -2854,8 +2854,7 @@ body.blurred > *:not(#logoutMode) {
                 text-align: left;
             }
             .buttons {
-                width: 100%;
-                justify-content: flex-end;
+                width: 200px;
             }
               
             .buttons button {
@@ -2907,8 +2906,8 @@ body.blurred > *:not(#logoutMode) {
             .para {
                 font-size: 1em;
             }
-        
         }
+
 
     @media screen and (max-width: 400px) {
         .welcome {
