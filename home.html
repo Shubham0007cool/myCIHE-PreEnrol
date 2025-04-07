@@ -177,8 +177,7 @@
     <div class="enrollment-help">
         <p style="font-size: 19px; text-align: center;">If you get any confusion while enrolling or prior enrolling, simply click on 
            
-                <a href="Support.html" class="btn4-primary">Contact Us <i class="fas fa-arrow-right"></i> </a>
-        
+                <a class="son" href="Support.html">Contact Us </a> 
         to get assistance and seamless enrollment experience.</p> 
     </div>
     <div class="enrollment-container">
@@ -189,6 +188,9 @@
             <div class="enrollment-card current">
                 <div class="enrollment-header">
                     <h3>Current Enrollment Period</h3>
+
+
+            
                     <span class="status-badge">Open Now</span>
                 </div>
                 <div class="enrollment-details">
@@ -213,19 +215,29 @@
                     margin-top: 30px;
                     flex-wrap: wrap;
                 }
-                .btn4-primary{
-                background-color: var(--primary);
+                .son a{
+               
                 color: black;
                 border: 1px solid #ccc;
-                border-radius: 30px;
                 box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
                 padding: 12px 25px;         
                 font-weight: 600;
                 text-decoration: none;
                 transition: all 0.3s ease;
                 }
-                .btn4-primary i{
+                .son i{
                     padding: 5px 5px;
+                }
+
+                .btn4-primary{
+                    color: black;
+                border: 1px solid #ccc;
+                border-radius: 20px;
+                box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
+                padding: 12px 25px;         
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s ease;
                 }
                  .btn4-primary:hover{
                 transform: translateY(-3px);
@@ -239,7 +251,7 @@
             <!-- Upcoming Enrollment Period -->
             <div class="enrollment-card upcoming">
                 <div class="enrollment-header">
-                    <h3>Upcoming Enrollment Period</h3>
+                    <h3>Predictive Enrollment Period</h3>
                     <span class="status-badge">Coming Soon</span>
                 </div>
                 <div class="enrollment-details">
@@ -253,33 +265,8 @@
                     <a href="reminder.html" class="btn4-primary">Set Reminder <i class="fas fa-arrow-right"></i> </a>
                 </div>
             </div>
-            
-            <!-- Important Dates -->
-            <div class="enrollment-card dates">
-                <div class="enrollment-header">
-                    <h3>Key Academic Dates</h3>
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <ul class="date-list">
-                    <li>
-                        <span class="date">April 20, 2025</span>
-                        <span class="event">Semester 2 Enrollment Closes</span>
-                    </li>
-                    <li>
-                        <span class="date">July 22, 2025</span>
-                        <span class="event">Semester 2 Classes Begin</span>
-                    </li>
-                    <li>
-                        <span class="date">July 15, 2024</span>
-                        <span class="event">Semester 2, 2025 Enrollment Opens</span>
-                    </li>
-                    <li>
-                        <span class="date">October 17, 2025</span>
-                        <span class="event">Semester 2, 2025 Classes End</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    </div>
+
         <!--Enrollment notice-->
         <div class="enrollment-notes">
             <h3>Important Notes:</h3>
@@ -290,7 +277,6 @@
                 <li><i class="fas fa-exclamation-circle"></i> Some courses may have earlier deadlines due to high demand</li>
             </ul>
         </div>
-    </div>
 </section>
 
 <style>
