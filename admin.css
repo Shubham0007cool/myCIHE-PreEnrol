@@ -5,16 +5,22 @@ body {
     padding: 0;
     background: #f5f5f5;
     padding-bottom: 60px; 
+   
 }
 
 
 .header {
     background: linear-gradient(to right, #c0c0c0, #ffffff);
+
     padding: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #000;
+
+        position: sticky !important;
+        top: 0 !important;
+
 }
 
 .header .logo {
@@ -24,19 +30,16 @@ body {
 
 .nav {
     display: flex;
-    gap: 50px;
+    gap: 20px;
     font-weight: bold;
-    margin: auto;
 }
 
 .nav a {
     text-decoration: none;
     color: black;
-    margin: auto;
 }
 
 .nav a:hover {
-    cursor: pointer;
     text-decoration: underline;
 }
 
@@ -60,7 +63,6 @@ body {
     border-radius: 5px;
     top: 100%;
     left: 0;
-    cursor: pointer;
     z-index: 10;
 }
 
@@ -74,70 +76,12 @@ body {
 
 .dropdown-content a:hover {
     background: #a9a9a9;
-    cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    
-}
-/* For the password reset popup*/
-.popUp {
-    display: none;
-    position: fixed;
-    top: 50%;
-    width: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-.popUp:target {
-    display: block;
 }
 
-.close-btn {
-    text-decoration: none;
-    color: red;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.popUp .popMe {
-    display: flex;
-    flex-direction: column;
-}
-.popUp .popMe .user, .popUp .popMe .change {
-    margin-bottom: 10px;
-    padding: 10px;
-}
-.astrick{  /* for popup inpu field*/
-    color: red;
-}
-.user:focus{
-    outline: none;
-        border-color: #ff6b00;
-        box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
-}
-.popMeup{
-    width: 100%;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-.popMeup:hover{
-    background-color: var(--primary);
-    color: black;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
-}
 
 .main,
 .databoard-container,
