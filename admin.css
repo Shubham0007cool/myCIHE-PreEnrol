@@ -11,6 +11,8 @@ body {
     background: linear-gradient(to right, #c0c0c0, #ffffff);
     padding: 15px;
     display: flex;
+    position: sticky;
+    top: 0;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #000;
