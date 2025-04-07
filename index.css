@@ -109,13 +109,13 @@
 
         /* login page css*/
         .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
         }
 
         .navbar .logo img {
@@ -132,8 +132,8 @@
 
         .navbar .link1 p {
             margin-right: 15px;
-    color: #666;
-    font-size: 14px;
+            color: #666;
+            font-size: 14px;
         }
 
         .navbar .link1 ul {
@@ -664,6 +664,7 @@
 
         /* homepage css*/
         .log {
+          
             display: flex;
             justify-content: flex-end;
             margin: 10px;
@@ -707,10 +708,16 @@
             display: flex;
             align-items: center;
             padding: 10px 20px;
+            position: sticky;
+            transition: all 0.3s ease;
             background-color: #7c3aed;
             color: white;
+            top: 0;
         }
-
+        .nav.scrolled {
+            padding: 10px 0; /* make it more compact */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* stronger shadow */
+        }
         .nav .logo img {
             width: 50px;
             cursor: pointer;
@@ -720,6 +727,10 @@
             margin:auto;
             justify-content: center;
             font-family: Arial, sans-serif;
+            position: sticky;
+            top: 0;
+            background: transparent;
+        
         }
 
         .nav .links ul {
