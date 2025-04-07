@@ -10,7 +10,9 @@
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-      
+        <ul>
+            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
+        </ul>
     </div>
 
    
@@ -169,6 +171,397 @@
            </style>
     </div>
 </section>
+
+<section class="enrollment-info">
+    <h2 style="text-align: center; margin-bottom: 15px; font-size: 20px;">Enrolment Help</h2></span>
+    <div class="enrollment-help">
+        <p style="font-size: 19px; text-align: center;">If you get any confusion while enrolling or prior enrolling, simply click on 
+           
+                <a href="Support.html" class="btn4-primary">Contact Us <i class="fas fa-arrow-right"></i> </a>
+        
+        to get assistance and seamless enrollment experience.</p> 
+    </div>
+    <div class="enrollment-container">
+        <h2>Enrollment Periods & Deadlines</h2>
+        
+        <div class="enrollment-cards">
+            <!-- Current Enrollment Period -->
+            <div class="enrollment-card current">
+                <div class="enrollment-header">
+                    <h3>Current Enrollment Period</h3>
+                    <span class="status-badge">Open Now</span>
+                </div>
+                <div class="enrollment-details">
+                    <p><strong>Semester:</strong> Semester 1, 2025</p>
+                    <p><strong>Enrollment Deadline:</strong> April 20, 2025</p>
+                    <p><strong>Classes Begin:</strong> April 7, 2025</p>
+                    <div class="countdown">
+                        <p>Only <span class="days-remaining">13</span> days left to enroll!</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="enrol-button">
+                    <a href="subjectreg.html" class="btn4-primary">Enroll Now<i class="fas fa-arrow-right"></i> </a>
+                </div>
+            </div>
+            <style>
+                .enrol-button{
+                    display: flex;
+                    gap: 15px;
+                    margin-top: 30px;
+                    flex-wrap: wrap;
+                }
+                .btn4-primary{
+                background-color: var(--primary);
+                color: black;
+                border: 1px solid #ccc;
+                border-radius: 30px;
+                box-shadow: 0 4px 15px rgba(211, 75, 26, 0.3);
+                padding: 12px 25px;         
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                }
+                .btn4-primary i{
+                    padding: 5px 5px;
+                }
+                 .btn4-primary:hover{
+                transform: translateY(-3px);
+                text-decoration: none;
+                color: white;
+                box-shadow: 0 6px 20px rgba(238, 26, 26, 0.799);
+                background-color: #e05d00;
+                        }
+            </style>
+            
+            <!-- Upcoming Enrollment Period -->
+            <div class="enrollment-card upcoming">
+                <div class="enrollment-header">
+                    <h3>Upcoming Enrollment Period</h3>
+                    <span class="status-badge">Coming Soon</span>
+                </div>
+                <div class="enrollment-details">
+                    <p><strong>Semester:</strong> Semester 2, 2025</p>
+                    <p><strong>Enrollment Opens:</strong> July 15, 2025</p>
+                    <p><strong>Enrollment Deadline:</strong> July 20, 2025</p>
+                    <p><strong>Classes Begin:</strong> July 22, 2025</p>
+                    <p><strong>Classes End:</strong> October 17, 2025</p>
+                </div>
+                <div class="enrol-button">
+                    <a href="reminder.html" class="btn4-primary">Set Reminder <i class="fas fa-arrow-right"></i> </a>
+                </div>
+            </div>
+            
+            <!-- Important Dates -->
+            <div class="enrollment-card dates">
+                <div class="enrollment-header">
+                    <h3>Key Academic Dates</h3>
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <ul class="date-list">
+                    <li>
+                        <span class="date">April 20, 2025</span>
+                        <span class="event">Semester 2 Enrollment Closes</span>
+                    </li>
+                    <li>
+                        <span class="date">July 22, 2025</span>
+                        <span class="event">Semester 2 Classes Begin</span>
+                    </li>
+                    <li>
+                        <span class="date">July 15, 2024</span>
+                        <span class="event">Semester 2, 2025 Enrollment Opens</span>
+                    </li>
+                    <li>
+                        <span class="date">October 17, 2025</span>
+                        <span class="event">Semester 2, 2025 Classes End</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Enrollment notice-->
+        <div class="enrollment-notes">
+            <h3>Important Notes:</h3>
+            <ul>
+                <li><i class="fas fa-exclamation-circle"></i> Late enrollments may incur additional fees</li>
+                <li><i class="fas fa-exclamation-circle"></i> International students should apply at least 6 weeks before deadlines</li>
+                <li><i class="fas fa-exclamation-circle"></i> Scholarship applications have separate deadlines (see Scholarships section)</li>
+                <li><i class="fas fa-exclamation-circle"></i> Some courses may have earlier deadlines due to high demand</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Enrollment Info Styles */
+.enrollment-info {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+.enrollment-help{
+    background-color: white;
+    padding: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.enrollment-help .btn4-primary{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.enrollment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.enrollment-container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.enrollment-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.enrollment-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.enrollment-card:hover {
+    transform: translateY(-5px);
+}
+
+.enrollment-card.current {
+    border-top: 4px solid #27ae60;
+}
+
+.enrollment-card.upcoming {
+    border-top: 4px solid #f39c12;
+}
+
+.enrollment-card.dates {
+    border-top: 4px solid #3498db;
+}
+
+.enrollment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.enrollment-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.status-badge {
+    background-color: #27ae60;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.upcoming .status-badge {
+    background-color: #f39c12;
+    width: 108px;
+}
+
+.enrollment-details p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.enrollment-details p strong {
+    color: #2c3e50;
+}
+
+.countdown {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.days-remaining {
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #27ae60;
+    transition: width 0.5s ease;
+}
+
+.date-list {
+    list-style: none;
+    padding: 0;
+}
+
+.date-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.date-list li:last-child {
+    border-bottom: none;
+}
+
+.date {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.event {
+    color: #555;
+    text-align: right;
+}
+
+.enroll-btn, .remind-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.enroll-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+}
+
+.enroll-btn:hover {
+    background-color: #219653;
+}
+
+.remind-btn {
+    background-color: #f8f9fa;
+    color: #f39c12;
+    border: 2px solid #f39c12;
+}
+
+.remind-btn:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+.enrollment-notes {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.enrollment-notes h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.enrollment-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.enrollment-notes li {
+    padding: 8px 0;
+    color: #555;
+}
+
+.enrollment-notes i {
+    color: #e74c3c;
+    margin-right: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .enrollment-cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+// Countdown Timer Calculation
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the deadline date (June 30, 2024)
+    const deadline = new Date('2025-04-20');
+    const today = new Date();
+    
+    // Calculate days remaining
+    const timeDiff = deadline - today;
+    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    
+    // Update the countdown display
+    const daysElement = document.querySelector('.days-remaining');
+    if (daysElement) {
+        daysElement.textContent = daysRemaining > 0 ? daysRemaining : 0;
+    }
+    
+    // Calculate progress percentage (assuming enrollment opened on June 1)
+    const enrollmentStart = new Date('2025-04-07');
+    const totalDays = Math.ceil((deadline - enrollmentStart) / (1000 * 60 * 60 * 24));
+    const daysPassed = Math.ceil((today - enrollmentStart) / (1000 * 60 * 60 * 24));
+    const progressPercent = Math.min(100, Math.max(0, (daysPassed / totalDays) * 100));
+    
+    // Update progress bar
+    const progressBar = document.querySelector('.progress');
+    if (progressBar) {
+        progressBar.style.width = `${progressPercent}%`;
+        
+        // Change color based on remaining time
+        if (daysRemaining < 7) {
+            progressBar.style.backgroundColor = '#e74c3c';
+        } else if (daysRemaining < 14) {
+            progressBar.style.backgroundColor = '#f39c12';
+        }
+    }
+    
+    // Remind button functionality
+    const remindBtn = document.querySelector('.remind-btn');
+    if (remindBtn) {
+        remindBtn.addEventListener('click', function() {
+            alert('We will remind you when enrollment opens for Semester 2, 2025!');
+        });
+    }
+});
+</script>
+
 
 
 <section class="degrees-tabs" id="degrees-section">
