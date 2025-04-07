@@ -10,7 +10,9 @@
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-        
+        <ul>
+            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
+        </ul>
     </div>
 
     <div class="nav">
@@ -134,7 +136,8 @@
     <div class="details-container">
         <div class="details1">
             <h2 style="font-size: 20px;">User details</h2>
-            <h3 style="font-size: 10px;"><a href="profile.html">Edit profile</a></h3>
+            <h3 style="font-size: 10px;"><a href="#" id="getEdit" onclick="openTab('edit-profile-tab'); return false;
+            ">Edit profile</a></h3>
             <h2 style="font-size: 20px;">Email Address</h2>
             <p style="color: blue;">CIHE22580@student.cihe.edu.au</p>
             <h2 style="font-size: 20px;">Country</h2>
@@ -143,16 +146,17 @@
             <p style="color: blue;">Gungahlin</p>
             <h2 style="font-size: 20px;">Time Zone</h2>
             <p style="color: blue;">Australia/Sydney</p>
-            
         </div>
+
+       
         <div class="details2">
             <h2 style="font-size: 20px;">Courses</h2>
             <h3 style="font-size: 10px;">Course details</h3>
             <ul class="course-taken">
-                <li><a href="">XXXXXXXX</a></li>
-                <li><a href="">XXXXXXXXX</a></li>
-                <li><a href="">XXXXXXXXX</a></li>
-                <li><a href="">XXXXXXXXX</a></li>
+                <li><a href="">XXXXXX</a></li>
+                <li><a href="">XXXXXX</a></li>
+                <li><a href="">XXXXXX</a></li>
+                <li><a href="">XXXXXX</a></li>
             </ul>
         </div>
 
@@ -258,23 +262,28 @@
 </div>
 <script>
     // Tab Navigation
-    function openTab(tabId) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tab buttons
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Show the selected tab content and mark button as active
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+function openTab(tabId) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Remove active class from all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // Show the selected tab content
+    document.getElementById(tabId).classList.add('active');
+    
+    // Find and activate the corresponding tab button
+    const tabBtn = document.querySelector(`.tab-btn[onclick="openTab('${tabId}')"]`);
+    if (tabBtn) {
+        tabBtn.classList.add('active');
+    }
+}
         
 </script>
 <footer>
