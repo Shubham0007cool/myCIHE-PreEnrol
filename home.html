@@ -10,7 +10,9 @@
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-       
+        <ul>
+            <li><a href="Support.html"><i class="fa-solid fa-infinity"></i> Help</a></li>
+        </ul>
     </div>
 
    
@@ -79,8 +81,23 @@
         <h2>Welcome, Student</h2>
         <div class="buttons">
             <i class="fa-solid fa-bell"></i>
-             <button><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+             <button id="destroy" onclick="return logOut()"><a href="index.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+            
         </div>
+        <!--Script to confirm is user wants to logout or not-->
+        <script> 
+            function logOut(){
+                var confirmLogout = confirm ("Are you sure to logout?");
+                if (confirmLogout){
+                    window.location.href = "index.html";
+                    return ture;
+                }
+               else {
+                return false;
+               }
+            }
+            
+             </script>
     </header>
 <!-- Welcome Note Section -->
 <section class="welcome-note">
@@ -187,8 +204,6 @@
                 <div class="enrollment-header">
                     <h3>Current Enrollment Period</h3>
 
-
-            
                     <span class="status-badge">Open Now</span>
                 </div>
                 <div class="enrollment-details">
