@@ -2502,7 +2502,7 @@ body.blurred > *:not(#logoutMode) {
         text-align: center; /* Center-align the content */
         padding: 20px 10px; /* Add padding for spacing */
         font-size: 14px; /* Smaller font size for footer */
-        margin-top: 200px;
+        margin-top: 100px;
         border-top: 5px solid yellow; /* Optional: Add a highlight border */
     }
 
