@@ -60,10 +60,11 @@
             alert("Password must be 6-10 characters long and include at least one letter, one number, and one special character (@, #, $, ?).");
             return false;
         }
-            
+                  
         alert("Successfully account created.");
         window.location.href = "index.html";
         return true;
+        
     }
     </script>
 
@@ -73,7 +74,7 @@
         </div>
         <h1>Sign up</h1>
         <div class="formIt">
-            <form action="" id="getForm" onsubmit="return letForm()" >
+            <form action="index.html" id="getForm" onsubmit="return letForm()" >
             <label for="Fullname">Full Name</label>
             <input class="full" type="text" name="fullname" id="Fullname" placeholder="Enter full name">
 
