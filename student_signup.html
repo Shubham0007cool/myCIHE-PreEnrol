@@ -30,8 +30,8 @@
             }
         }
     </style>
-    <script>function letForm() {
-        // Access form elements
+    <script>
+        function letForm() {
         var fullname = document.forms ["getForm"]["Fullname"].value; //.trim removes the whitespaces between the text
         var email = document.forms ["getForm"]["getmail"].value;
         var phone = document.forms ["getForm"]["contact"].value;
@@ -41,34 +41,28 @@
         var dob = document.forms ["getForm"] ["birth"].value;
         var student = document.forms ["getForm"] ["studentID"].value;
     
-        // Checks if any field is empty
         if (fullname === '' || email === '' || phone === '' || password === '' || rePassword === '' || location === '' || dob === '' || student === '') {
             alert("Please, fill all the details to sign up.");
             return false;
         }
-    
-        // Checks if passwords match
         if (password !== rePassword) {
             alert("Passwords do not match. Please re-enter your passwords.");
             return false;
         }
     
-        // Validates phone number length
         if (phone.length !== 10 || isNaN(phone)) {
             alert("Phone number must be exactly 10 digits.");
             return false;
         }
     
-        // Validates password pattern
         var passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$/;
         if (!passwordPattern.test(password)) {
             alert("Password must be 6-10 characters long and include at least one letter, one number, and one special character (@, #, $, ?).");
             return false;
         }
-    
-        // shows Success message
+            
         alert("Successfully account created.");
-       window.location.href = "index.html";
+        window.location.href = "index.html";
         return true;
     }
     </script>
