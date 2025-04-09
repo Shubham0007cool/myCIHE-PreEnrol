@@ -13,8 +13,6 @@
         <p>Logged in as Student (CIHE22580)</p>
     
     </div>
-
-   
     <div class="nav">
         <div class="logo">
             <a href="home.html">
@@ -287,8 +285,10 @@
         const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
         if (checkedBoxes.length === 0) {
             alert('Please select at least one subject to register');
-        } else {
-            alert('Registration successful!');
+        }else{ 
+        alert('Registration successful!');
+            window.location.href = "profile.html";
+            return true;
         }
     });
 </script>
