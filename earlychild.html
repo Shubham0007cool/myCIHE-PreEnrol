@@ -281,6 +281,46 @@
 <div class="btn-container">
     <button id="register" class="button">Register</button>
 </div>
+
+<div class="back">
+    <span><a href="subjectreg.html"><i class="fa fa-arrow-left"></i>Back to Sub-registration</a></span>
+</div>
+
+<style>
+    .back
+    {
+        justify-content: center;
+        border: 1px solid #ccc;
+        border-radius: 40px;
+        width: 20%;
+        margin: auto;
+        margin-top: 40px;
+        text-align: center;
+    }
+    .back:hover{
+        background: orangered;
+        border: 1px solid black;
+
+    }
+    .back a{
+        color: black; 
+        margin: auto; 
+        text-transform: capitalize;
+       
+    }
+    .back a:hover{
+        color: white;  
+        text-decoration: none; 
+    }
+    .back a i{
+        padding: 10px;
+    }
+    .back a i:hover{
+        transform: translatex(-10px);
+    }
+    
+</style>
+    
 <script>
     // Simple JavaScript for the popup form
     document.querySelectorAll('[href="#popForm"]').forEach(link => {
