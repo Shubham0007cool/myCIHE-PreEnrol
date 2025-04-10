@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
+    <style>
+     
+        .enrollment-time {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .enrollment-faculty {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .faculty-it {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .faculty-business {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .faculty-accounting {
+            background-color: #f3e5f5;
+            color: #6a1b9a;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -14,47 +41,16 @@
                 <a href="admin.html" class="nav-link active">Dashboard</a>
                 <div class="dropdown-content">
                     <a href="search.html">Select Course and Units</a>
-                    <a href="add_units.html">Add Units</a>
+                    <a href="Addsemester.html">Add Units</a>
                 </div>
             </div>
             <a href="studentpp.html">Student Profile</a>
-            <a href="index.html" id="logout" onclick="return logOut()">Logout</a>
-            <div class="dropdown">
-                <a href="#">Settings</a>
-                <div class="dropdown-content">
-                    <a href="#popForm">Change Password</a>
-                </div>
-            </div>
+            <a href="#">About</a>
+            <a href="#">Settings</a>
         </div>
     </div>
-    <div id="popForm" class="popUp">
-        <a href="#" class="close-btn">✖</a>
-        <form class="popMe">
-          <label for="old">Old Password <span class="astrick">*</span></label>
-          <input class="user" type="password" id="password" name="password" required>
-          <label for="new">New Passowrd <span class="astrick">*</span></label>
-          <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
-          <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
-          <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
-          
-          <button class="popMeup" type="submit">Change</button>
-        </form>
-      </div>
-      <script> 
-        function logOut(){
-            var confirmLogout = confirm ("Are you sure to logout?");
-            if (confirmLogout){
-                window.location.href = "index.html";
-                return ture;
-            }
-           else {
-            return false;
-           }
-        }
-        
-         </script>
+
     <div class="main">
-        <!-- Your existing content container -->
         <div class="content-container">
             <div class="text-box">
                 <h2>Admin Dashboard</h2>
@@ -66,9 +62,7 @@
             </div>
         </div>
 
-        <!-- Added Pre-Enrollment Dashboard Section -->
         <div class="dashboard-overview">
-            <!-- Quick Stats Cards -->
             <div class="stats-container">
                 <div class="stat-card">
                     <h3>Total Pre-Enrollments</h3>
@@ -78,7 +72,7 @@
                 <div class="stat-card">
                     <h3>Pending Approvals</h3>
                     <p class="stat-value">87</p>
-                    <a href="#" class="action-link">Review Now</a>
+                    <a href="search.html" class="action-link">See Pre-enrollments stats</a>
                 </div>
                 <div class="stat-card">
                     <h3>Most Popular Course</h3>
@@ -92,7 +86,6 @@
                 </div>
             </div>
 
-            <!-- Recent Activity Section -->
             <div class="activity-section">
                 <h2>Recent Pre-Enrollments</h2>
                 <div class="activity-table">
@@ -101,36 +94,39 @@
                             <tr>
                                 <th>Student Name</th>
                                 <th>Student ID</th>
-                                <th>Course</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                                <th>Faculty</th>
+                                <th>Courses Enrolled</th>
+                                <th>Enrollment Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Jhalak Dhakal</td>
                                 <td>CIHE22238</td>
-                                <td>ICT305</td>
-                                <td><span class="status-pending">Pending</span></td>
-                                <td>2024-05-15</td>
-                                <td><a href="#" class="action-link">Review</a></td>
+                                <td><span class="enrollment-faculty faculty-it">IT</span></td>
+                                <td>ICT305, ICT307</td>
+                                <td><span class="enrollment-time">Today, 10:45 AM</span></td>
                             </tr>
                             <tr>
                                 <td>John Doe</td>
                                 <td>CIHE22345</td>
-                                <td>ICT307</td>
-                                <td><span class="status-approved">Approved</span></td>
-                                <td>2024-05-14</td>
-                                <td><a href="#" class="action-link">View</a></td>
+                                <td><span class="enrollment-faculty faculty-business">Business</span></td>
+                                <td>BUS202, BUS205</td>
+                                <td><span class="enrollment-time">Today, 9:30 AM</span></td>
                             </tr>
                             <tr>
                                 <td>Jane Smith</td>
                                 <td>CIHE22456</td>
-                                <td>ICT308</td>
-                                <td><span class="status-rejected">Rejected</span></td>
-                                <td>2024-05-13</td>
-                                <td><a href="#" class="action-link">View</a></td>
+                                <td><span class="enrollment-faculty faculty-accounting">Accounting</span></td>
+                                <td>ACC201, ACC203</td>
+                                <td><span class="enrollment-time">Yesterday, 4:15 PM</span></td>
+                            </tr>
+                            <tr>
+                                <td>Michael Brown</td>
+                                <td>CIHE22457</td>
+                                <td><span class="enrollment-faculty faculty-it">IT</span></td>
+                                <td>ICT308, ICT310</td>
+                                <td><span class="enrollment-time">Yesterday, 3:00 PM</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,7 +135,7 @@
             </div>
         </div>
     </div>
-   
+
     <div class="footer">
         Copyright &copy; 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved.<br>
         Privacy Policy | Terms of Use
