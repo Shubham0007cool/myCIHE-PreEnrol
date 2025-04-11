@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,50 @@
         <p>Logged in as Student (CIHE22580)</p>
        
     </div>
- <div class="chat-window" id="chatWindow">
+
+    <div class="nav">
+        <div class="logo">
+            <a href="home.html">
+                <img src="image.png" alt="Logo">
+            </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="links">
+            <ul>
+                <li class="dropdown">
+                    <a href="home.html">Dashboard</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="orange" href="profile.html">Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="subjectreg.html">Subject Registration</a></li>
+                <li><a href="Support.html">Support</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Setting</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#popForm">Change Password</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+<script>
+    document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('.links').classList.toggle('active');
+});
+</script>
+
+<div class="live-chat-container">
+    <button class="chat-button" id="chatButton">
+        <i class="fas fa-comments"></i> Live Chat
+    </button>
+    
+    <div class="chat-window" id="chatWindow">
         <div class="chat-header">
             <h3>Live Chat Support</h3>
             <button class="close-chat" id="closeChat">✖</button>
@@ -28,7 +72,8 @@
         </div>
     </div>
 </div>
-    <style>
+
+<style>
     
     .live-chat-container {
         position: fixed;
@@ -222,43 +267,6 @@
         });
     });
 </script>
-    <div class="nav">
-        <div class="logo">
-            <a href="home.html">
-                <img src="image.png" alt="Logo">
-            </a>
-        </div>
-        <button class="hamburger" aria-label="Toggle Navigation">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <div class="links">
-            <ul>
-                <li class="dropdown">
-                    <a href="home.html">Dashboard</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="orange" href="profile.html">Profile</a></li>
-                    </ul>
-                </li>
-                <li><a href="subjectreg.html">Subject Registration</a></li>
-                <li><a href="Support.html">Support</a></li>
-                <li><a href="about.html">About</a></li>
-                <li class="dropdown">
-                    <a href="#">Setting</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#popForm">Change Password</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    
-<script>
-    document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.links').classList.toggle('active');
-});
-</script>
-
     <div id="popForm" class="popUp">
         <a href="#" class="close-btn">✖</a>
         <form class="popMe">
