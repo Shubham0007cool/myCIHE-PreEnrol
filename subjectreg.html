@@ -6,12 +6,68 @@
     <title>Subrego</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-   
+    <style>
+        /* Additional styles for the unit details modal */
+        .unit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 70%;
+            max-width: 800px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .unit-details {
+            margin-top: 20px;
+        }
+        
+        .unit-details h3 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .unit-details p {
+            margin: 10px 0;
+        }
+        
+        .view-details-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .view-details-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
     <div class="log">
         <p>Logged in as Student (CIHE22580)</p>
-       
     </div>
 
     <div class="nav">
@@ -49,7 +105,6 @@
     });
     </script>
         
-    
     <div id="popForm" class="popUp">
         <a href="#" class="close-btn">✖</a>
         <form class="popMe">
@@ -59,33 +114,32 @@
           <input class="user" type="password" id="password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" name="password" required>
           <label for="confirm">Confirm-Passowrd <span class="astrick">*</span></label>
           <input class="user" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" minlength="6" type="password" id="confirmpassword" name="confirmpassword" required>
-          
           <button class="change" type="submit">Change</button>
         </form>
-      </div>
-      <header class="loggedIn">
+    </div>
+    
+    <header class="loggedIn">
         <h2>Welcome, Student</h2>
         <div class="buttons">
             <i class="fa-solid fa-bell"></i>
-             <button id="destroy" onclick="return showModel()"><a href="logoutpop.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
-         </div>
+            <button id="destroy" onclick="return showModel()"><a href="logoutpop.html"><i class="fa-solid fa-door-open"></i> Logout</a></button>
+        </div>
     </header>
     
-<script> 
+    <script> 
         function showModel(){
             document.getElementById("logoutMode").style.display = "flex";
-            document.body.classList.add("blurred"); /* Blurs the whole body content when clicked on logout button*/
-           
+            document.body.classList.add("blurred");
             return false;
-            }
+        }
         function hideModel(){
             document.getElementById("logoutMode").style.display = "none";
-            document.body.classList.remove("blurred"); /* remmoves the blur of the whole body content when clicked on NO */
+            document.body.classList.remove("blurred");
         }
         function confirmLogout(){
-        window.location.href = "index.html";
+            window.location.href = "index.html";
         }
-</script>
+    </script>
 
     <div class="confirm-btns" id="logoutMode" style="display: none; justify-content: center;">
         <div class="comfirm-box">
@@ -97,71 +151,343 @@
         </div>
     </div>
 
-
     <div class="head">
         <h1 style="justify-content: center; text-align: center;">Search Course</h1>
     </div>
 
     <div class="locations">
-        <select>
-            <option value="">Select locations</option>
+        <select id="locationFilter">
+            <option value="">All Locations</option>
             <option value="Gungahlin">Gungahlin</option>
             <option value="Belconnen">Belconnen</option>
             <option value="City">City</option>
         </select>
     </div>
 
-<hr>
-<!--script for searchbar-->
-<script> document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.querySelector(".search input");
-    const courses = document.querySelectorAll(".images .sub1, .images .sub2, .images .sub3");
-    
-    searchInput.addEventListener("input", function () {
-        const query = searchInput.value.toLowerCase();
-        
-        courses.forEach(course => {
-            const courseText = course.querySelector("p").textContent.toLowerCase();
-            if (courseText.includes(query)) {
-                course.style.display = "block";
-            } else {
-                course.style.display = "none";
-            }
-        });
-    });
-});
-</script>
+    <hr>
 
     <div class="search">
-        <i class="fa-solid fa-search"></i><input type="search"  placeholder="Search units...">
+        <i class="fa-solid fa-search"></i>
+        <input type="search" id="courseSearch" placeholder="Search units...">
     </div>
-   <h1 class="available" style="text-align: center; color: gray;">
-    Please select your degree to register subjects.
-   </h1>
-    <div class="images">
+    
+    <h1 class="available" style="text-align: center; color: gray;">
+        Please select your courses to register.
+    </h1>
+    
+    <div class="images" id="courseContainer">
+        <!-- Program cards will be inserted here by JavaScript -->
         <div class="sub1">   
-        <a href="registration.html">
-            <img class="subs" src="program.jpeg" alt=""> </a>
-        <hr>
-        <p class="IT" style="color: black;">Bachelor of IT</p> 
+            <a href="registration.html">
+                <img class="subs" src="program.jpeg" alt="Bachelor of IT"> 
+            </a>
+            <hr>
+            <p class="IT" style="color: black;">Bachelor of IT</p> 
+        </div>
+
+        <div class="sub2">   
+            <a href="masters.html">
+                <img class="subs" src="degree.jpeg" alt="Masters of IT"> 
+            </a>
+            <hr>
+            <p>Masters of IT</p>
+        </div>
+        
+        <div class="sub3">   
+            <a href="earlychild.html">
+                <img class="subs" src="sports1.png" alt="Bachelor of Early Childhood Education"> 
+            </a>
+            <hr>
+            <p>Bachelor of Early Childhood Education</p>
+        </div>
     </div>
 
-    <div class="sub2">   
-        <a href="masters.html"><img class="subs" src="degree.jpeg" alt=""> </a>
-        <hr>
-        <p>Masters of IT</p>
-</div>
-<div class="sub3">   
-    <a href="earlychild.html"><img class="subs" src="sports1.png" alt=""> </a>
-    <hr>
-    <p>Bachelor of Early Childhood Education</p>
-</div>
-
-</div>
-<footer>
-    <div>
-        &copy; Copyright 2007 - 2024 WebSutra Technology Pty Ltd Trading as CIHE Project Team. All Rights Reserved. Privacy Policy | Terms of Use
+     <!-- Unit Details Modal -->
+     <div id="unitModal" class="unit-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="unitDetails" class="unit-details">
+                <!-- Unit details will be inserted here -->
+            </div>
+        </div>
     </div>
-</footer>
+
+    <script>
+        // Comprehensive course data without teacher-day-time information
+        const coursesData = {
+            "Bachelor of IT": [
+                {
+                    id: "ICT101",
+                    title: "Introduction to Information Technology",
+                    description: "Fundamentals of IT concepts and structures",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ICT102",
+                    title: "Web Development",
+                    description: "Introduction to web technologies and development",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+               
+                {
+                    id: "ICT201",
+                    title: "Database Systems",
+                    description: "Fundamentals of database design and implementation",
+                    cp: "10.00",
+                    prerequisite: "ICT102"
+                },
+                {
+                    id: "ICT204",
+                    title: "Cyber Security",
+                    description: "Fundamentals of cybersecurity principles and practices",
+                    cp: "10.00",
+                    prerequisite: "ICT102 Networking; ICT101 Introduction to Information Technology"
+                },
+                {
+                    id: "BUS301",
+                    title: "The Digital Economy",
+                    description: "Understanding the digital economy and its impact",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ICT313",
+                    title: "Big Data for Software Development",
+                    description: "Working with large datasets in software applications",
+                    cp: "10.00",
+                    prerequisite: "ICT103 Programming, ICT313 Database Systems"
+                }
+            ],
+            "Masters of IT": [
+                {
+                    id: "ICT910",
+                    title: "Enterprise Systems Security",
+                    description: "Advanced concepts in securing enterprise systems",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ICT911",
+                    title: "Database Management Systems",
+                    description: "Advanced database concepts and administration",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ICT920",
+                    title: "Management Information Systems",
+                    description: "Strategic use of information systems in organizations",
+                    cp: "10.00",
+                    prerequisite: "ICT910 Enterprise Systems Security"
+                },
+                {
+                    id: "ICT912",
+                    title: "Programming",
+                    description: "Advanced programming techniques and paradigms",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ICT931",
+                    title: "Cybersecurity Incident Response",
+                    description: "Managing and responding to cybersecurity incidents",
+                    cp: "10.00",
+                    prerequisite: "ICT910 Enterprise Systems Security"
+                },
+                {
+                    id: "ICT921",
+                    title: "Applied Software Engineering",
+                    description: "Practical software engineering methodologies",
+                    cp: "10.00",
+                    prerequisite: "ICT912 Programming"
+                },
+                {
+                    id: "ICT913",
+                    title: "Networking",
+                    description: "Advanced networking concepts and implementations",
+                    cp: "10.00",
+                    prerequisite: "None"
+                }
+            ],
+            "Bachelor of Early Childhood Education": [
+                {
+                    id: "EC100",
+                    title: "Learning and Development 1",
+                    description: "Fundamentals of child learning and development",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "EC103",
+                    title: "Global and Contemporary Perspectives in Early Childhood",
+                    description: "Contemporary issues in early childhood education",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "ECP001",
+                    title: "Professional Experience 1 – Community Engagement",
+                    description: "Practical community engagement experience",
+                    cp: "10.00",
+                    prerequisite: "EC100"
+                },
+                {
+                    id: "EC106",
+                    title: "Early Childhood Curriculum Planning and Evaluation 1",
+                    description: "Curriculum development for early childhood",
+                    cp: "10.00",
+                    prerequisite: "ECP001"
+                },
+                {
+                    id: "EC201",
+                    title: "Designing Early Learning Environments",
+                    description: "Creating effective learning environments for children",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "EC202",
+                    title: "Numeracy and Mathematics 1",
+                    description: "Teaching numeracy and mathematics to young children",
+                    cp: "10.00",
+                    prerequisite: "None"
+                },
+                {
+                    id: "EC200",
+                    title: "Health",
+                    description: "Health and wellbeing in early childhood settings",
+                    cp: "10.00",
+                    prerequisite: "None"
+                }
+            ]
+        };
+
+        // DOM elements
+        const searchInput = document.getElementById('courseSearch');
+        const locationFilter = document.getElementById('locationFilter');
+        const courseContainer = document.getElementById('courseContainer');
+        const unitModal = document.getElementById('unitModal');
+        const unitDetails = document.getElementById('unitDetails');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup search functionality
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                
+                if (query.length > 0) {
+                    searchCourses(query);
+                } else {
+                    showDefaultProgramCards();
+                }
+            });
+            
+            // Close modal when clicking X
+            closeModal.addEventListener('click', function() {
+                unitModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === unitModal) {
+                    unitModal.style.display = 'none';
+                }
+            });
+        });
+
+        // Show default program cards (Bachelor of IT, Masters, etc.)
+        function showDefaultProgramCards() {
+            courseContainer.innerHTML = `
+                <div class="sub1">   
+                    <a href="registration.html">
+                        <img class="subs" src="program.jpeg" alt="Bachelor of IT"> 
+                    </a>
+                    <hr>
+                    <p class="IT" style="color: black;">Bachelor of IT</p> 
+                </div>
+
+                <div class="sub2">   
+                    <a href="masters.html">
+                        <img class="subs" src="degree.jpeg" alt="Masters of IT"> 
+                    </a>
+                    <hr>
+                    <p>Masters of IT</p>
+                </div>
+                
+                <div class="sub3">   
+                    <a href="earlychild.html">
+                        <img class="subs" src="sports1.png" alt="Bachelor of Early Childhood Education"> 
+                    </a>
+                    <hr>
+                    <p>Bachelor of Early Childhood Education</p>
+                </div>
+               
+            `;
+           
+        }
+
+        // Search courses across all programs
+        function searchCourses(query) {
+            courseContainer.innerHTML = '';
+            let resultsFound = false;
+            
+            for (const program in coursesData) {
+                const matchingCourses = coursesData[program].filter(course => {
+                    return course.id.toLowerCase().includes(query) || 
+                           course.title.toLowerCase().includes(query);
+                });
+                
+                if (matchingCourses.length > 0) {
+                    resultsFound = true;
+                    matchingCourses.forEach(course => {
+                        const courseDiv = document.createElement('div');
+                        courseDiv.className = 'sub1';
+                        courseDiv.innerHTML = `
+                            <div class="course-info">
+                                <h3>${course.id} - ${course.title}</h3>
+                                <p><strong>Program:</strong> ${program}</p>
+                                <button class="view-details-btn" data-program="${program}" data-id="${course.id}">
+                                    View Details
+                                </button>
+                            </div>
+                        `;
+                        courseContainer.appendChild(courseDiv);
+                        
+                        // Add event listener to view details button
+                        courseDiv.querySelector('.view-details-btn').addEventListener('click', function() {
+                            showUnitDetails(program, course.id);
+                        });
+                    });
+                }
+            }
+            
+            if (!resultsFound) {
+                courseContainer.innerHTML = '<p>No courses found matching your search criteria.</p>';
+            }
+        }
+
+        // Show unit details in modal
+        function showUnitDetails(program, courseId) {
+            const course = coursesData[program].find(c => c.id === courseId);
+            
+            if (course) {
+                unitDetails.innerHTML = `
+                    <h3>${course.id} - ${course.title}</h3>
+                    <p><strong>Program:</strong> ${program}</p>
+                    <p><strong>Credit Points:</strong> ${course.cp}</p>
+                    <p><strong>Prerequisite:</strong> ${course.prerequisite}</p>
+                    <p><strong>Description:</strong> ${course.description}</p>
+                   <i style= "text-align:center; color:red; justify-content:center" class="fa fa-arrow-left"></i><a style="color:red;" href="subjectreg.html">Back to Courses</a>
+        
+                `;
+                
+                unitModal.style.display = 'block';
+            }
+        }
+    </script>
+
 </body>
 </html>
