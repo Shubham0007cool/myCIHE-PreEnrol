@@ -41,7 +41,12 @@
         </ul>
     </div>
 </div>
-     <div class="chat-window" id="chatWindow">
+   <script>
+    document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('.links').classList.toggle('active');
+});
+</script>
+  <div class="chat-window" id="chatWindow">
         <div class="chat-header">
             <h3>Live Chat Support</h3>
             <button class="close-chat" id="closeChat">✖</button>
@@ -250,11 +255,6 @@
             }
         });
     });
-</script>
-<script>
-    document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.links').classList.toggle('active');
-});
 </script>
 
 <div id="popForm" class="popUp">
