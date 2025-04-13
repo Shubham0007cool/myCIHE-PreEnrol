@@ -1,3 +1,7 @@
+*{
+    font-style: Arial, sans-serif;
+    
+}
 
 body.blurred > *:not(#logoutMode) {
     filter: blur(6px) !important;
@@ -5,7 +9,7 @@ body.blurred > *:not(#logoutMode) {
        body {
             margin: 0;
             padding: 0;
-            background: #ffff;
+        
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
