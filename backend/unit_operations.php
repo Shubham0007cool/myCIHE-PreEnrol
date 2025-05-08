@@ -7,8 +7,8 @@ function getUnitsByProgram($programCode) {
     try {
         $sql = "SELECT 
                     u.id,
-                    u.unit_code,
-                    u.unit_name,
+                    u.unit_code as code,
+                    u.unit_name as name,
                     u.description,
                     u.credits,
                     GROUP_CONCAT(DISTINCT CONCAT(p.unit_code, ' - ', p.unit_name) SEPARATOR ', ') as prerequisites,
@@ -16,35 +16,25 @@ function getUnitsByProgram($programCode) {
                 FROM units u
                 LEFT JOIN unit_prerequisites up ON u.id = up.unit_id
                 LEFT JOIN units p ON up.prerequisite_unit_id = p.id
-                LEFT JOIN courses c ON u.course_id = c.id
-                LEFT JOIN programs pr ON c.program_id = pr.id
-                LEFT JOIN programs pr2 ON pr2.program_code = ?
-                GROUP BY u.id, u.unit_code, u.unit_name, u.description, u.credits, is_assigned
+                LEFT JOIN course_units c ON u.id = c.unit_id
+                LEFT JOIN programs pr ON c.program_id = pr.id AND pr.program_code = ?
+                GROUP BY u.id, u.unit_code, u.unit_name, u.description, u.credits, c.program_id, pr.id
                 ORDER BY u.unit_code";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $programCode);
+        $stmt->bind_param("s", $programCode);
         $stmt->execute();
         $result = $stmt->get_result();
         
         $units = [];
         while ($row = $result->fetch_assoc()) {
-            $units[] = [
-                'id' => $row['id'],
-                'code' => $row['unit_code'],
-                'name' => $row['unit_name'],
-                'description' => $row['description'],
-                'credits' => $row['credits'],
-                'prerequisites' => $row['prerequisites'] ? explode(', ', $row['prerequisites']) : [],
-                'is_assigned' => (bool)$row['is_assigned']
-            ];
+            $row['prerequisites'] = $row['prerequisites'] ? explode(', ', $row['prerequisites']) : [];
+            $units[] = $row;
         }
         
-        return $units;
-        
+        return ['success' => true, 'units' => $units];
     } catch (Exception $e) {
-        error_log("Error getting units: " . $e->getMessage());
-        throw $e;
+        return ['success' => false, 'message' => $e->getMessage()];
     }
 }
 
@@ -85,104 +75,77 @@ function assignUnitsToProgram($programCode, $unitIds) {
     global $conn;
     
     try {
+        // Start transaction
         $conn->begin_transaction();
         
-        // Get program ID
-        $sql = "SELECT id FROM programs WHERE program_code = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $programCode);
+        // Get program ID from code
+        $stmt = $conn->prepare("SELECT id FROM programs WHERE program_code = ?");
+        $stmt->bind_param("s", $programCode);
         $stmt->execute();
         $result = $stmt->get_result();
+        $program = $result->fetch_assoc();
         
-        if ($result->num_rows === 0) {
+        if (!$program) {
             throw new Exception("Program not found");
         }
         
-        $program = $result->fetch_assoc();
-        $programId = $program['id'];
-        
-        // Get course ID for the program
-        $sql = "SELECT id FROM courses WHERE program_id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $programId);
+        // Remove existing assignments
+        $stmt = $conn->prepare("DELETE FROM course_units WHERE program_id = ?");
+        $stmt->bind_param("i", $program['id']);
         $stmt->execute();
-        $result = $stmt->get_result();
         
-        if ($result->num_rows === 0) {
-            throw new Exception("Course not found for program");
+        // Add new assignments
+        $stmt = $conn->prepare("INSERT INTO course_units (program_id, unit_id) VALUES (?, ?)");
+        foreach ($unitIds as $unitId) {
+            $stmt->bind_param("ii", $program['id'], $unitId);
+            $stmt->execute();
         }
         
-        $course = $result->fetch_assoc();
-        $courseId = $course['id'];
-        
-        // Update course_id for selected units
-        $sql = "UPDATE units SET course_id = ? WHERE id IN (" . implode(',', array_fill(0, count($unitIds), '?')) . ")";
-        $stmt = $conn->prepare($sql);
-        $params = array_merge([$courseId], $unitIds);
-        $stmt->bind_param(str_repeat('i', count($params)), ...$params);
-        $stmt->execute();
-        
+        // Commit transaction
         $conn->commit();
-        return true;
-        
+        return ['success' => true];
     } catch (Exception $e) {
+        // Rollback transaction on error
         $conn->rollback();
-        error_log("Error assigning units: " . $e->getMessage());
-        throw $e;
+        return ['success' => false, 'message' => $e->getMessage()];
     }
 }
 
-// Handle AJAX requests
+// Handle incoming requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
+    $action = $_POST['action'] ?? '';
     
-    try {
-        if (isset($_POST['action'])) {
-            switch ($_POST['action']) {
-                case 'get_units':
-                    $programCode = $_POST['program'] ?? '';
-                    $units = getUnitsByProgram($programCode);
-                    echo json_encode(['success' => true, 'units' => $units]);
-                    break;
-                    
-                case 'add_unit':
-                    $unitCode = $_POST['unit_code'] ?? '';
-                    $unitName = $_POST['unit_name'] ?? '';
-                    $description = $_POST['description'] ?? '';
-                    $credits = $_POST['credits'] ?? 0;
-                    $courseId = $_POST['course'] ?? 0;
-                    
-                    if (empty($unitCode) || empty($unitName) || empty($description) || $credits <= 0 || $courseId <= 0) {
-                        throw new Exception("Missing required parameters");
-                    }
-                    
-                    addNewUnit($unitCode, $unitName, $description, $credits, $courseId);
-                    echo json_encode(['success' => true, 'message' => 'Unit added successfully']);
-                    break;
-                    
-                case 'assign_units':
-                    $programCode = $_POST['program'] ?? '';
-                    $unitIds = isset($_POST['units']) ? (is_array($_POST['units']) ? $_POST['units'] : [$_POST['units']]) : [];
-                    
-                    if (empty($programCode) || empty($unitIds)) {
-                        throw new Exception("Missing required parameters");
-                    }
-                    
-                    assignUnitsToProgram($programCode, $unitIds);
-                    echo json_encode(['success' => true, 'message' => 'Units assigned successfully']);
-                    break;
-                    
-                default:
-                    throw new Exception("Invalid action");
+    switch ($action) {
+        case 'get_units':
+            $programCode = $_POST['program'] ?? '';
+            if (empty($programCode)) {
+                echo json_encode(['success' => false, 'message' => 'Program code is required']);
+                exit;
             }
-        } else {
-            throw new Exception("No action specified");
-        }
-        
-    } catch (Exception $e) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(getUnitsByProgram($programCode));
+            break;
+            
+        case 'assign_units':
+            $programCode = $_POST['program'] ?? '';
+            $units = json_decode($_POST['units'] ?? '[]', true);
+            
+            if (empty($programCode)) {
+                echo json_encode(['success' => false, 'message' => 'Program code is required']);
+                exit;
+            }
+            
+            if (empty($units)) {
+                echo json_encode(['success' => false, 'message' => 'No units selected']);
+                exit;
+            }
+            
+            echo json_encode(assignUnitsToProgram($programCode, $units));
+            break;
+            
+        default:
+            echo json_encode(['success' => false, 'message' => 'Invalid action']);
     }
-    exit;
+} else {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
 ?> 
