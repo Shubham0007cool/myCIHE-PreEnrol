@@ -129,6 +129,84 @@ $nextYear = $currentYear + 1;
         margin-left: 20px;
         font-style: italic;
     }
+
+    .level-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 5px;
+    }
+
+    .level-title {
+        margin: 0 0 15px 0;
+        color: #2c3e50;
+        font-size: 1.2em;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #e05d00;
+    }
+
+    .semester-group {
+        margin-bottom: 15px;
+        padding: 10px;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .semester-title {
+        margin: 0 0 10px 0;
+        color: #34495e;
+        font-size: 1.1em;
+    }
+
+    .unit-option {
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        transition: all 0.2s;
+    }
+
+    .unit-option:hover {
+        background-color: #f8f9fa;
+        border-color: #e05d00;
+    }
+
+    .unit-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .unit-code {
+        font-weight: bold;
+        color: #2c3e50;
+        min-width: 80px;
+    }
+
+    .unit-name {
+        color: #34495e;
+    }
+
+    .prerequisite {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin-left: 30px;
+        font-style: italic;
+    }
+
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 </style>
 
 <div class="main">
@@ -232,8 +310,24 @@ document.getElementById('addUnitForm').addEventListener('submit', async function
 document.getElementById('assignUnitsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const formData = new FormData(this);
+    const programCode = document.getElementById('program').value;
+    if (!programCode) {
+        alert('Please select a program');
+        return;
+    }
+
+    const selectedUnits = Array.from(document.querySelectorAll('input[name="units[]"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    if (selectedUnits.length === 0) {
+        alert('Please select at least one unit');
+        return;
+    }
+    
+    const formData = new FormData();
     formData.append('action', 'assign_units');
+    formData.append('program', programCode);
+    formData.append('units', JSON.stringify(selectedUnits));
     
     try {
         const response = await fetch('backend/unit_operations.php', {
@@ -245,8 +339,7 @@ document.getElementById('assignUnitsForm').addEventListener('submit', async func
         
         if (data.success) {
             alert('Units assigned successfully');
-            // Reload units to show updated assignments
-            loadUnits();
+            loadUnits(); // Reload to show updated assignments
         } else {
             alert('Error: ' + data.message);
         }
@@ -257,8 +350,8 @@ document.getElementById('assignUnitsForm').addEventListener('submit', async func
 });
 
 async function loadUnits() {
-    const program = document.getElementById('program').value;
-    if (!program) return;
+    const programCode = document.getElementById('program').value;
+    if (!programCode) return;
     
     try {
         const response = await fetch('backend/unit_operations.php', {
@@ -268,7 +361,7 @@ async function loadUnits() {
             },
             body: new URLSearchParams({
                 action: 'get_units',
-                program: program
+                program: programCode
             })
         });
         
@@ -298,11 +391,10 @@ async function loadUnits() {
                 if (units.length > 0) {
                     const section = document.createElement('div');
                     section.className = 'level-section';
-                    section.setAttribute('data-program', program);
                     
-                    const title = document.createElement('div');
+                    const title = document.createElement('h3');
                     title.className = 'level-title';
-                    title.textContent = `${program} - ${level}`;
+                    title.textContent = level;
                     section.appendChild(title);
                     
                     // Group units by semester
@@ -314,9 +406,8 @@ async function loadUnits() {
                         if (semesterUnits.length > 0) {
                             const semesterGroup = document.createElement('div');
                             semesterGroup.className = 'semester-group';
-                            semesterGroup.setAttribute('data-semester', `semester${index + 1}`);
                             
-                            const semesterTitle = document.createElement('div');
+                            const semesterTitle = document.createElement('h4');
                             semesterTitle.className = 'semester-title';
                             semesterTitle.textContent = `Semester ${index + 1}`;
                             semesterGroup.appendChild(semesterTitle);
@@ -330,13 +421,13 @@ async function loadUnits() {
                                 
                                 const checkbox = document.createElement('input');
                                 checkbox.type = 'checkbox';
-                                checkbox.id = unit.code;
+                                checkbox.id = `unit_${unit.id}`;
                                 checkbox.name = 'units[]';
                                 checkbox.value = unit.id;
                                 checkbox.checked = unit.is_assigned;
                                 
                                 const label = document.createElement('label');
-                                label.phpFor = unit.code;
+                                label.htmlFor = `unit_${unit.id}`;
                                 
                                 const codeSpan = document.createElement('span');
                                 codeSpan.className = 'unit-code';
@@ -370,9 +461,13 @@ async function loadUnits() {
                     container.appendChild(section);
                 }
             });
+        } else {
+            console.error('Error loading units:', data.message);
+            alert('Error loading units: ' + data.message);
         }
     } catch (error) {
         console.error('Error loading units:', error);
+        alert('An error occurred while loading units.');
     }
 }
 
