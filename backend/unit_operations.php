@@ -116,6 +116,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     
     switch ($action) {
+        case 'add_unit':
+            $unitCode = $_POST['unit_code'] ?? '';
+            $unitName = $_POST['unit_name'] ?? '';
+            $description = $_POST['description'] ?? '';
+            $credits = $_POST['credits'] ?? 0;
+            $courseId = $_POST['course'] ?? 0;
+            
+            if (empty($unitCode) || empty($unitName) || empty($description) || empty($credits) || empty($courseId)) {
+                echo json_encode(['success' => false, 'message' => 'All fields are required']);
+                exit;
+            }
+            
+            try {
+                addNewUnit($unitCode, $unitName, $description, $credits, $courseId);
+                echo json_encode(['success' => true]);
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            }
+            break;
+            
         case 'get_units':
             $programCode = $_POST['program'] ?? '';
             if (empty($programCode)) {
