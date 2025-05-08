@@ -184,16 +184,13 @@ if (isset($_GET['debug']) && $_GET['debug'] === 'true') {
                 
                 <label for="password">New Password</label>
                 <input type="password" name="password" id="password" required 
-                       pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$" 
+                       
                        minlength="6">
                 
                 <div class="password-requirements">
                     <strong>Password Requirements:</strong>
                     <ul>
-                        <li>6-10 characters long</li>
-                        <li>At least one letter</li>
-                        <li>At least one number</li>
-                        <li>At least one special character (@, #, $, ?)</li>
+                        <li>Must be at least 6 characters long</li>
                     </ul>
                 </div>
                 
@@ -218,11 +215,11 @@ if (isset($_GET['debug']) && $_GET['debug'] === 'true') {
             return false;
         }
         
-        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$/;
-        if (!passwordPattern.test(password)) {
-            alert('Password does not meet the requirements!');
-            return false;
-        }
+        // const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,10}$/;
+        // if (!passwordPattern.test(password)) {
+        //     alert('Password does not meet the requirements!');
+        //     return false;
+        // }
         
         return true;
     }
