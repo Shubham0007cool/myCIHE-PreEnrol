@@ -84,7 +84,7 @@ if (!isset($_SESSION["student_id"])) {
         <p>Logged in as Student (<?php echo $_SESSION["student_id"]; ?>)</p>
     </div>
 
-    <div class="nav">
+    <div class="nav" style="z-index: 1000;">
         <div class="logo">
             <a href="home.php">
                 <img src="image.png" alt="Logo">
@@ -152,5 +152,3 @@ if (!isset($_SESSION["student_id"])) {
             </div>
         </div>
     </div>
-</body>
-</html> 
