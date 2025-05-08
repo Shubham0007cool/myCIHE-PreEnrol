@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($user && $password === $user["password"]) {
         $_SESSION["student_id"] = $user["id"];
         $_SESSION["full_name"] = $user["full_name"];
-        header("Location: dashboard.html"); // Or any post-login page
+        header("Location: dashboard.php"); // Or any post-login page
         exit();
     } else {
-        echo "<script>alert('Invalid username or password'); window.location.href='student_login.html';</script>";
+        echo "<script>alert('Invalid username or password'); window.location.href='student_login.php';</script>";
     }
 }
 ?>
