@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+if(!isset($_SESSION)) {
+    session_start();
+}
+
 require_once 'backend/db.php';
 
 // Check if user is logged in as admin
@@ -245,6 +249,7 @@ ob_start();
                     <a href="add_units.php">Add Units</a>
                     <a href="add_teacher.php">Add Teacher</a>
                     <a href="add_course.php">Add Course</a>
+                    <a href="admin_chat.php">Live Chat</a>
                 </div>
             </div>
             <a href="studentpp.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'studentpp.php' ? 'active' : ''; ?>">Student Profile</a>
