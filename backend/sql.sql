@@ -84,6 +84,18 @@ CREATE TABLE IF NOT EXISTS units (
     FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE SET NULL
 );
 
+-- Create course_units table
+CREATE TABLE IF NOT EXISTS course_units (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    program_id INT NOT NULL,
+    unit_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
+    FOREIGN KEY (unit_id) REFERENCES units(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_program_unit (program_id, unit_id)
+);
+
 -- Create unit_prerequisites table
 CREATE TABLE IF NOT EXISTS unit_prerequisites (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -123,9 +135,11 @@ CREATE TABLE IF NOT EXISTS notifications (
 -- Create chat_messages table
 CREATE TABLE IF NOT EXISTS chat_messages (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    sender_id INT NOT NULL,
-    receiver_id INT NOT NULL,
+    sender_id VARCHAR(50) NOT NULL,
+    receiver_id VARCHAR(50) NOT NULL,
     message TEXT NOT NULL,
+    sender_name VARCHAR(255),
+    sender_type ENUM('student', 'admin') NOT NULL,
     is_read BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -134,6 +148,11 @@ CREATE TABLE IF NOT EXISTS chat_messages (
 -- Insert default admin account
 INSERT INTO admins (email, password) VALUES 
 ('admin@admin.com', '$2y$10$zCLhf6lH0cxCGOmMPA1naOzAvriEOL8VOH9EQtX64AxfNDQMnAZZK');
+
+-- Insert sample students
+INSERT INTO students (student_id, first_name, last_name, email, password, program_id, contact_number, emergency_contact) VALUES
+('S001', 'John', 'Doe', 'john@student.cihe.edu.au', '$2y$10$zCLhf6lH0cxCGOmMPA1naOzAvriEOL8VOH9EQtX64AxfNDQMnAZZK', 1, '1234567890', 'Jane Doe'),
+('S002', 'Jane', 'Smith', 'jane@student.cihe.edu.au', '$2y$10$zCLhf6lH0cxCGOmMPA1naOzAvriEOL8VOH9EQtX64AxfNDQMnAZZK', 1, '9876543210', 'John Smith');
 
 -- Insert sample programs
 INSERT INTO programs (program_code, program_name, description, duration, program_type) VALUES
@@ -366,3 +385,5 @@ INSERT INTO units (unit_code, unit_name, description, credits, course_id) VALUES
 ('EC201', 'Designing Early Learning Environments', 'Creating effective learning environments for children', 10, 3),
 ('EC202', 'Numeracy and Mathematics 1', 'Teaching numeracy and mathematics to young children', 10, 3),
 ('EC200', 'Health', 'Health and wellbeing in early childhood settings', 10, 3); 
+
+
