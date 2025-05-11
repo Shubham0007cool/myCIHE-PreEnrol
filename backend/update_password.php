@@ -2,75 +2,77 @@
 session_start();
 require_once "db.php";
 
-// Check if user is logged in
-if (!isset($_SESSION["student_id"])) {
-    header("Location: ../index.php");
-    exit;
-}
-
-// Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_id = $_SESSION["student_id"];
-    $old_password = $_POST["old_password"];
-    $new_password = $_POST["new_password"];
-    $confirm_password = $_POST["confirm_password"];
-    
-    // Validate passwords
-    if ($new_password !== $confirm_password) {
-        $_SESSION["error"] = "New passwords do not match!";
-        header("Location: ../home.php");
+    $token = $_POST['token'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+
+    // Validate inputs
+    if (empty($token) || empty($email) || empty($password) || empty($confirm_password)) {
+        $_SESSION["error"] = "All fields are required";
+        header("Location: ../reset_password.php?token=" . urlencode($token));
         exit;
     }
-    
-    // Validate password format
-    if (!preg_match("/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$?])[A-Za-z\d@#$?]{6,30}$/", $new_password)) {
-        $_SESSION["error"] = "Password must be 6-10 characters long and contain letters, numbers, and special characters (@#$?)";
-        header("Location: ../home.php");
+
+    if ($password !== $confirm_password) {
+        $_SESSION["error"] = "Passwords do not match";
+        header("Location: ../reset_password.php?token=" . urlencode($token));
         exit;
     }
+
+    // Simple password validation - just check length
+    if (strlen($password) < 6) {
+        $_SESSION["error"] = "Password must be at least 6 characters long";
+        header("Location: ../reset_password.php?token=" . urlencode($token));
+        exit;
+    }
+
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Update password in students table
+    $sql_students = "UPDATE students SET password = ?, reset_token = NULL, reset_expiry = NULL 
+                    WHERE email = ? AND reset_token = ? AND reset_expiry > NOW()";
     
-    try {
-        // Get current password from database
-        $stmt = $conn->prepare("SELECT password FROM students WHERE student_id = ?");
-        $stmt->bind_param("s", $student_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows === 0) {
-            throw new Exception("User not found");
+    $updated = false;
+    
+    // Try updating students table
+    if ($stmt = mysqli_prepare($conn, $sql_students)) {
+        mysqli_stmt_bind_param($stmt, "sss", $hashed_password, $email, $token);
+        if (mysqli_stmt_execute($stmt)) {
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                $updated = true;
+            }
         }
-        
-        $user = $result->fetch_assoc();
-        
-        // Verify old password
-        if (!password_verify($old_password, $user["password"])) {
-            $_SESSION["error"] = "Current password is incorrect!";
-            header("Location: ../home.php");
-            exit;
-        }
-        
-        // Hash new password
-        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-        
-        // Update password in database
-        $stmt = $conn->prepare("UPDATE students SET password = ? WHERE student_id = ?");
-        $stmt->bind_param("ss", $hashed_password, $student_id);
-        
-        if ($stmt->execute()) {
-            $_SESSION["success"] = "Password updated successfully!";
-        } else {
-            throw new Exception("Failed to update password");
-        }
-        
-    } catch (Exception $e) {
-        $_SESSION["error"] = "An error occurred: " . $e->getMessage();
+        mysqli_stmt_close($stmt);
     }
     
-    header("Location: ../home.php");
-    exit;
+    // Try updating admins table
+    $sql_admins = "UPDATE admins SET password = ?, reset_token = NULL, reset_expiry = NULL 
+                  WHERE email = ? AND reset_token = ? AND reset_expiry > NOW()";
+    
+    if ($stmt = mysqli_prepare($conn, $sql_admins)) {
+        mysqli_stmt_bind_param($stmt, "sss", $hashed_password, $email, $token);
+        if (mysqli_stmt_execute($stmt)) {
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                $updated = true;
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    
+    if ($updated) {
+        $_SESSION["success"] = "Password has been reset successfully. You can now login with your new password.";
+        header("Location: ../index.php");
+        exit;
+    } else {
+        $_SESSION["error"] = "Reset link has expired or is invalid";
+        header("Location: ../reset_password.php?token=" . urlencode($token));
+        exit;
+    }
 } else {
-    // If not POST request, redirect to home
-    header("Location: ../home.php");
+    header("Location: ../index.php");
     exit;
 }
 ?> 
