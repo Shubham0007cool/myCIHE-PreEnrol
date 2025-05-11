@@ -29,7 +29,7 @@ $recent_enrollments = getRecentEnrollments();
             <div class="stat-card">
                 <h3>Pending Approvals</h3>
                 <p class="stat-value"><?php echo number_format($stats['pending_approvals']); ?></p>
-                <a href="search.php" class="action-link">See Pre-enrollments stats</a>
+                <a href="enrollmentstats.php" class="action-link">See Pre-enrollments stats</a>
             </div>
             <div class="stat-card">
                 <h3>Most Popular Course</h3>
@@ -75,7 +75,7 @@ $recent_enrollments = getRecentEnrollments();
                     </tbody>
                 </table>
             </div>
-            <a href="search.php" class="view-all-link">View All Pre-Enrollments →</a>
+            <a href="enrollmentstats.php" class="view-all-link">View All Pre-Enrollments →</a>
         </div>
     </div>
 </div>
