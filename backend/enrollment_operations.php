@@ -1,73 +1,126 @@
 <?php
 require_once 'db.php';
 
-function getEnrollmentStats($course_code) {
+function getEnrollmentStats($course_code = null) {
     global $conn;
     
     try {
-        // Get course details
-        $course_sql = "SELECT 
-                        c.course_code,
-                        c.course_name,
-                        p.program_name,
-                        p.program_type
-                    FROM courses c
-                    LEFT JOIN programs p ON c.program_id = p.id
-                    WHERE c.course_code = ?";
+        // Get enrollment statistics by course, day and time slot
+        $stats_sql = "SELECT 
+            c.course_code,
+            c.course_name,
+            p.program_name,
+            p.program_type,
+            t.department as faculty_name,
+            CASE 
+                WHEN t.department = 'IT' THEN 'IT'
+                WHEN t.department = 'Business' THEN 'BUS'
+                WHEN t.department = 'Accounting' THEN 'ACC'
+                ELSE 'IT'
+            END as faculty_code,
+            DAYNAME(e.enrollment_date) as day,
+            COUNT(DISTINCT e.student_id) as total,
+            SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '08:30:00' AND '11:30:00' THEN 1 ELSE 0 END) as morning,
+            SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '12:00:00' AND '15:00:00' THEN 1 ELSE 0 END) as midday,
+            SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '15:00:00' AND '18:00:00' THEN 1 ELSE 0 END) as afternoon,
+            SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '18:00:00' AND '21:00:00' THEN 1 ELSE 0 END) as evening,
+            SUM(CASE WHEN e.status = 'pending' THEN 1 ELSE 0 END) as pending,
+            SUM(CASE WHEN e.status = 'approved' THEN 1 ELSE 0 END) as approved,
+            SUM(CASE WHEN e.status = 'rejected' THEN 1 ELSE 0 END) as rejected
+        FROM enrollments e
+        JOIN units u ON e.unit_id = u.id
+        JOIN courses c ON u.course_id = c.id
+        JOIN programs p ON c.program_id = p.id
+        LEFT JOIN teachers t ON u.teacher_id = t.id
+        WHERE e.semester = (SELECT MAX(semester) FROM enrollments)";
         
-        $course_stmt = $conn->prepare($course_sql);
-        $course_stmt->bind_param("s", $course_code);
-        $course_stmt->execute();
-        $course_result = $course_stmt->get_result();
+        $params = [];
+        $types = "";
         
-        if ($course_result->num_rows === 0) {
-            throw new Exception("Course not found");
+        if ($course_code) {
+            $stats_sql .= " AND c.course_code = ?";
+            $params[] = $course_code;
+            $types .= "s";
         }
         
-        $course = $course_result->fetch_assoc();
-        
-        // Get enrollment statistics by day and time slot
-        $stats_sql = "SELECT 
-                        DAYNAME(e.enrollment_date) as day,
-                        COUNT(DISTINCT e.student_id) as total,
-                        SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '08:30:00' AND '11:30:00' THEN 1 ELSE 0 END) as morning,
-                        SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '12:00:00' AND '15:00:00' THEN 1 ELSE 0 END) as midday,
-                        SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '15:00:00' AND '18:00:00' THEN 1 ELSE 0 END) as afternoon,
-                        SUM(CASE WHEN TIME(e.enrollment_date) BETWEEN '18:00:00' AND '21:00:00' THEN 1 ELSE 0 END) as evening
-                    FROM enrollments e
-                    JOIN units u ON e.unit_id = u.id
-                    WHERE u.course_id = (SELECT id FROM courses WHERE course_code = ?)
-                    GROUP BY DAYNAME(e.enrollment_date)
-                    ORDER BY FIELD(DAYNAME(e.enrollment_date), 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')";
+        $stats_sql .= " GROUP BY c.course_code, c.course_name, p.program_name, p.program_type, 
+                       t.department, DAYNAME(e.enrollment_date)
+                       ORDER BY t.department, c.course_code, 
+                       FIELD(DAYNAME(e.enrollment_date), 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')";
         
         $stats_stmt = $conn->prepare($stats_sql);
-        $stats_stmt->bind_param("s", $course_code);
+        
+        if (!empty($params)) {
+            $stats_stmt->bind_param($types, ...$params);
+        }
+        
         $stats_stmt->execute();
         $stats_result = $stats_stmt->get_result();
         
         $enrollment_data = [];
-        $total_students = 0;
+        $course_totals = [];
         
         while ($row = $stats_result->fetch_assoc()) {
+            $course_key = $row['course_code'];
+            
+            if (!isset($course_totals[$course_key])) {
+                $course_totals[$course_key] = [
+                    'total' => 0,
+                    'pending' => 0,
+                    'approved' => 0,
+                    'rejected' => 0,
+                    'morning' => 0,
+                    'midday' => 0,
+                    'afternoon' => 0,
+                    'evening' => 0
+                ];
+            }
+            
             $enrollment_data[] = [
+                'course_code' => $row['course_code'],
+                'course_name' => $row['course_name'],
+                'program_name' => $row['program_name'],
+                'program_type' => $row['program_type'],
+                'faculty_name' => $row['faculty_name'],
+                'faculty_code' => $row['faculty_code'],
                 'day' => $row['day'],
                 'total' => (int)$row['total'],
                 'morning' => (int)$row['morning'],
                 'midday' => (int)$row['midday'],
                 'afternoon' => (int)$row['afternoon'],
-                'evening' => (int)$row['evening']
+                'evening' => (int)$row['evening'],
+                'pending' => (int)$row['pending'],
+                'approved' => (int)$row['approved'],
+                'rejected' => (int)$row['rejected']
             ];
-            $total_students += $row['total'];
+            
+            $course_totals[$course_key]['total'] += $row['total'];
+            $course_totals[$course_key]['pending'] += $row['pending'];
+            $course_totals[$course_key]['approved'] += $row['approved'];
+            $course_totals[$course_key]['rejected'] += $row['rejected'];
+            $course_totals[$course_key]['morning'] += $row['morning'];
+            $course_totals[$course_key]['midday'] += $row['midday'];
+            $course_totals[$course_key]['afternoon'] += $row['afternoon'];
+            $course_totals[$course_key]['evening'] += $row['evening'];
         }
         
-        // Add total row
-        $enrollment_data[] = [
-            'isTotal' => true,
-            'total' => $total_students
-        ];
+        // Add total rows for each course
+        foreach ($course_totals as $code => $totals) {
+            $enrollment_data[] = [
+                'isTotal' => true,
+                'course_code' => $code,
+                'total' => $totals['total'],
+                'pending' => $totals['pending'],
+                'approved' => $totals['approved'],
+                'rejected' => $totals['rejected'],
+                'morning' => $totals['morning'],
+                'midday' => $totals['midday'],
+                'afternoon' => $totals['afternoon'],
+                'evening' => $totals['evening']
+            ];
+        }
         
         return [
-            'course' => $course,
             'enrollment_data' => $enrollment_data
         ];
         
@@ -82,11 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Content-Type: application/json');
     
     try {
-        if (!isset($_GET['course'])) {
-            throw new Exception('Course code is required');
-        }
-        
-        $stats = getEnrollmentStats($_GET['course']);
+        $course_code = $_GET['course'] ?? null;
+        $stats = getEnrollmentStats($course_code);
         echo json_encode(['success' => true, 'data' => $stats]);
         
     } catch (Exception $e) {
