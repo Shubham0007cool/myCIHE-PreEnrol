@@ -162,6 +162,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(assignUnitsToProgram($programCode, $units));
             break;
             
+        case 'add_selection':
+            $unit_id = $_POST['unit_id'] ?? 0;
+            $student_id = $_SESSION['id'] ?? 0;
+            
+            if (empty($unit_id) || empty($student_id)) {
+                $_SESSION["error"] = "Invalid request";
+                header("Location: ../select_units.php");
+                exit;
+            }
+            
+            // Check if already selected
+            $check_sql = "SELECT id FROM unit_selections WHERE student_id = ? AND unit_id = ?";
+            $check_stmt = mysqli_prepare($conn, $check_sql);
+            mysqli_stmt_bind_param($check_stmt, "ii", $student_id, $unit_id);
+            mysqli_stmt_execute($check_stmt);
+            mysqli_stmt_store_result($check_stmt);
+            
+            if (mysqli_stmt_num_rows($check_stmt) > 0) {
+                $_SESSION["error"] = "You have already selected this unit";
+                header("Location: ../select_units.php");
+                exit;
+            }
+            
+            // Add selection
+            $sql = "INSERT INTO unit_selections (student_id, unit_id) VALUES (?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ii", $student_id, $unit_id);
+            
+            if (mysqli_stmt_execute($stmt)) {
+                $_SESSION["success"] = "Unit selected successfully";
+            } else {
+                $_SESSION["error"] = "Error selecting unit";
+            }
+            
+            header("Location: ../select_units.php");
+            exit;
+            break;
+
+        case 'remove_selection':
+            $unit_id = $_POST['unit_id'] ?? 0;
+            $student_id = $_SESSION['id'] ?? 0;
+            
+            if (empty($unit_id) || empty($student_id)) {
+                $_SESSION["error"] = "Invalid request";
+                header("Location: ../select_units.php");
+                exit;
+            }
+            
+            $sql = "DELETE FROM unit_selections WHERE student_id = ? AND unit_id = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ii", $student_id, $unit_id);
+            
+            if (mysqli_stmt_execute($stmt)) {
+                $_SESSION["success"] = "Unit removed from selection";
+            } else {
+                $_SESSION["error"] = "Error removing unit";
+            }
+            
+            header("Location: ../select_units.php");
+            exit;
+            break;
+            
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action']);
     }
