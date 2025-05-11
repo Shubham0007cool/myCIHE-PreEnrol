@@ -145,6 +145,18 @@ CREATE TABLE IF NOT EXISTS chat_messages (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Table for unit selections
+CREATE TABLE IF NOT EXISTS unit_selections (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    unit_id INT NOT NULL,
+    selection_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (unit_id) REFERENCES units(id),
+    UNIQUE KEY unique_selection (student_id, unit_id)
+);
+
 -- Insert default admin account
 INSERT INTO admins (email, password) VALUES 
 ('admin@admin.com', '$2y$10$zCLhf6lH0cxCGOmMPA1naOzAvriEOL8VOH9EQtX64AxfNDQMnAZZK');
