@@ -77,6 +77,43 @@ function getTeachersForUnit($unit_id) {
     }
 }
 
+function getCurrentEnrollmentCount($student_id) {
+    global $conn;
+    try {
+        // Get student's internal ID
+        $student_sql = "SELECT id FROM students WHERE student_id = ?";
+        $student_stmt = $conn->prepare($student_sql);
+        $student_stmt->bind_param("s", $student_id);
+        $student_stmt->execute();
+        $student_result = $student_stmt->get_result();
+        
+        if ($student_result->num_rows === 0) {
+            throw new Exception("Student not found");
+        }
+        
+        $student_row = $student_result->fetch_assoc();
+        $internal_student_id = $student_row['id'];
+        
+        // Get current semester
+        $current_semester = date('Y') . (date('n') <= 6 ? '1' : '2');
+        
+        // Count current enrollments
+        $count_sql = "SELECT COUNT(DISTINCT unit_id) as count 
+                     FROM enrollments 
+                     WHERE student_id = ? AND semester = ?";
+        $count_stmt = $conn->prepare($count_sql);
+        $count_stmt->bind_param("is", $internal_student_id, $current_semester);
+        $count_stmt->execute();
+        $count_result = $count_stmt->get_result();
+        $count_row = $count_result->fetch_assoc();
+        
+        return $count_row['count'];
+    } catch (Exception $e) {
+        error_log("Error getting enrollment count: " . $e->getMessage());
+        throw $e;
+    }
+}
+
 function registerUnits($student_id, $units_data) {
     global $conn;
     
@@ -84,6 +121,12 @@ function registerUnits($student_id, $units_data) {
     $conn->begin_transaction();
     
     try {
+        // Check current enrollment count
+        $current_count = getCurrentEnrollmentCount($student_id);
+        if ($current_count + count($units_data) > 4) {
+            throw new Exception("You can only enroll in a maximum of 4 courses. You currently have {$current_count} courses enrolled.");
+        }
+        
         // Get student's internal ID from student_id
         $student_sql = "SELECT id FROM students WHERE student_id = ?";
         $student_stmt = $conn->prepare($student_sql);
