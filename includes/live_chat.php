@@ -10,7 +10,7 @@ if (!isset($_SESSION['student_id'])) {
 }
 
 // Get student info from database
-require_once 'backend/db.php';
+require_once __DIR__ . '/../backend/db.php';
 $student_id = $_SESSION['student_id'];
 $student_sql = "SELECT first_name, last_name, email FROM students WHERE student_id = ?";
 $student_stmt = mysqli_prepare($conn, $student_sql);
@@ -31,31 +31,12 @@ $admin_id = 'A' . $admin['id']; // Format admin ID as string with 'A' prefix
 
 $student_name = $student['first_name'] . ' ' . $student['last_name'];
 $student_email = $student['email'];
-?>
 
-<div class="chat-widget" id="chatWidget">
-    <div class="chat-header" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-        <span>Live Chat Support</span>
-        <div class="chat-status">
-            <span class="status-dot"></span>
-            <span class="status-text">Connecting...</span>
-        </div>
-    </div>
-    
-    <div class="chat-body" id="chatBody">
-        <div class="chat-messages" id="chatMessages">
-            <!-- Messages will be displayed here -->
-        </div>
-        
-        <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Type your message...">
-            <button id="sendButton">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-</div>
+// Only output HTML if we have valid student data
+if ($student && $admin) {
+    include __DIR__ . '/live_chat_template.php';
+}
+?>
 
 <style>
 .chat-widget {
@@ -268,12 +249,12 @@ function loadChatHistory() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         } else {
             console.error('Invalid chat history response:', data);
-            showError('Failed to load chat history. Please refresh the page.');
+            showChatError('Failed to load chat history. Please refresh the page.');
         }
     })
     .catch(error => {
         console.error('Error loading chat history:', error);
-        showError('Failed to load chat history. Please refresh the page.');
+        showChatError('Failed to load chat history. Please refresh the page.');
     });
 }
 
@@ -347,7 +328,7 @@ function connectWebSocket() {
                         
                     case 'error':
                         console.error('Chat error:', data.message);
-                        showError(data.message);
+                        showChatError(data.message);
                         break;
                 }
             } catch (error) {
@@ -366,22 +347,22 @@ function connectWebSocket() {
                 setTimeout(connectWebSocket, RECONNECT_DELAY);
             } else {
                 console.error('Max reconnection attempts reached');
-                showError('Unable to connect to chat server. Please refresh the page to try again.');
+                showChatError('Unable to connect to chat server. Please refresh the page to try again.');
             }
         };
         
         ws.onerror = function(error) {
             console.error('WebSocket error:', error);
-            showError('Connection error. Please check if the chat server is running.');
+            showChatError('Connection error. Please check if the chat server is running.');
         };
     } catch (error) {
         console.error('Error creating WebSocket connection:', error);
-        showError('Failed to connect to chat server. Please refresh the page to try again.');
+        showChatError('Failed to connect to chat server. Please refresh the page to try again.');
     }
 }
 
 // Show error message in chat
-function showError(message) {
+function showChatError(message) {
     const chatMessages = document.getElementById('chatMessages');
     const errorDiv = document.createElement('div');
     errorDiv.className = 'message error';
@@ -489,12 +470,35 @@ document.getElementById('sendButton').onclick = function() {
 
 // Handle Enter key
 document.getElementById('messageInput').onkeypress = function(e) {
-            if (e.key === 'Enter') {
+    if (e.key === 'Enter') {
         document.getElementById('sendButton').click();
     }
 };
 
 // Initialize
 connectWebSocket();
+document.addEventListener("DOMContentLoaded", function() {
+  const widget = document.getElementById("chatWidget");
+  const header = widget.querySelector(".chat-header");
+
+  // Start minimized
+  widget.classList.add("minimized");
+
+  // Prevent clicks inside the widget from bubbling up
+  widget.addEventListener("click", e => e.stopPropagation());
+
+  // Open chat when you click its header
+  header.addEventListener("click", function(e) {
+    e.stopPropagation();
+    widget.classList.remove("minimized");
+  });
+
+  // Close chat when clicking anywhere else in the window
+  document.addEventListener("click", function() {
+    if (!widget.classList.contains("minimized")) {
+      widget.classList.add("minimized");
+    }
+  });
+});
 
 </script> 
